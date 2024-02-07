@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Create New Cost</title>
+</head>
+
+<body>
+<h1 align="center">Costs List</h1>
+<a href="/api/costs/new">Create New Cost</a>
+<br/><br/>
+<form action="#" th:action="@{'/api/costs/save'}" th:object="${cost}" method="post">
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>
+                <label th:text="${'articleNumber'}" th:field="${cost.articleNumber}"></label>
+            </td>
+            <td><input type="text" th:field="${cost.articleNumber}"/></td>
+            <td>
+                <p th:if="${#fields.hasErrors('articleNumber')}" th:errorclass="error" th:errors="*{articleNumber}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label th:text="${'articleType'}" th:field="${cost.articleType}"></label>
+            </td>
+            <td>
+                <select name="ArticleType" th:field="${cost.articleType}">
+                    <option th:each="costType : ${T(com.optum.payment.system.entities.enums.CostType).values()}"
+                            th:value="${costType}"
+                            th:text="${costType.name}"/>
+                </select>
+            </td>
+            <td>
+                <p th:if="${#fields.hasErrors('articleType')}" th:errorclass="error" th:errors="*{articleType}"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

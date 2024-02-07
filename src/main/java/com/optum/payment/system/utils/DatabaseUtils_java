@@ -1,0 +1,49 @@
+package com.optum.payment.system.utils;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+import static com.optum.payment.system.global.InstallConstants.DB_URL;
+import static com.optum.payment.system.global.InstallConstants.JDBC_DRIVER;
+
+public class DatabaseUtils {
+    static Logger log = LogManager.getLogger(DatabaseUtils.class.getName());
+    //static final String createDatabaseSql = "CREATE DATABASE " + databaseName;
+
+
+    public static boolean createDatabase() {
+        //STEP 1: Register JDBC driver
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //STEP 2: Open a connection
+        System.out.println("Connecting to database...");
+
+        try(
+                Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement();
+        ) {
+            //STEP 3: Execute a query
+        //    System.out.println("Creating database...");
+      //      stmt.executeUpdate(createDatabaseSql);
+         //   System.out.println("Database created successfully...");
+
+            stmt.execute(FileReader.readFromFileFromResources("database/users.sql"));
+            System.out.println("Table users created successfully...");
+            stmt.execute(FileReader.readFromFileFromResources("database/systems.sql"));
+            System.out.println("Table systems created successfully...");
+            stmt.execute(FileReader.readFromFileFromResources("database/banks.sql"));
+            System.out.println("Table banks created successfully...");
+            stmt.execute(FileReader.readFromFileFromResources("database/costs.sql"));
+            System.out.println("Table costs created successfully...");
+
+        } catch (Exception e) {
+            log.error("Database exist already!");
+        }
+        return false;
+    }
+}

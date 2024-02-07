@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Banks List</title>
+</head>
+
+<body>
+<h1 align="center">Banks List</h1>
+<a href="/api/banks/new">Create New Bank</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Bank Name</th>
+        <th>IBAN Account</th>
+        <th>BIC</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bank : ${banks}">
+        <td th:text="${bank.name}">Bank Name</td>
+        <td th:text="${bank.IBANAccount}">IBAN Account</td>
+        <td th:text="${bank.BIC}">BIC</td>
+        <td>
+            <a th:href="@{'/api/banks/edit/?id='+${bank.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/api/banks/delete/?id='+${bank.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

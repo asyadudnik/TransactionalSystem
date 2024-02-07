@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Create New Role</title>
+</head>
+
+<body>
+<div align="center">
+    <h1 align="center">Create New Role</h1>
+    <br/><br/>
+    <form action="#" th:action="@{'/api/roles/save'}" th:object="${role}" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>Name</td>
+                <td>
+                    <select name="RoleName" th:field="${role.name}">
+                        <option th:each="roleName : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
+                                th:value="${roleName}"
+                                th:text="${roleName.name}"/>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="text" th:field="${role.description}" th:value="${role.name}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>

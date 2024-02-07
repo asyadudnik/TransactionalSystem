@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Roles List</title>
+</head>
+
+<body>
+<h1 align="center">Roles List</h1>
+<a href="/api/roles/new">Create New Role</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role : ${listRoles}">
+        <td th:text="${role.name}">Name</td>
+        <td th:text="${role.description}">Description</td>
+        <td>
+            <a th:href="@{'/api/roles/edit/?id='+${role.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/api/roles/delete/?id='+${role.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

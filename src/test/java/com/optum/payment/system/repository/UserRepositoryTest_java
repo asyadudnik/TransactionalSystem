@@ -1,0 +1,64 @@
+package com.optum.payment.system.repository;
+
+import com.optum.payment.system.entities.Role;
+import com.optum.payment.system.entities.System;
+import com.optum.payment.system.entities.User;
+import com.optum.payment.system.entities.enums.RoleName;
+import com.optum.payment.system.entities.enums.SystemName;
+import com.optum.payment.system.utils.DatabaseUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import java.util.Random;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class UserRepositoryTest {
+    User user;
+    System system;
+    Role role;
+    @BeforeEach
+    void setUp() {
+        Long nextId = new Random().nextLong();
+        system = System.builder()
+                .systemName(SystemName.SECURITY.name())
+                .dbConnectionString(DatabaseUtils.DB_URL)
+                .build();
+        role = Role.builder()
+                .name(RoleName.PROGRAMMER.name())
+                .build();
+        user = User.builder()
+                .email("asyadudnik@hotmail.com")
+                .password("12345")
+                .firstName("Oksana")
+                .lastName("Dudnik")
+                .fullName("Oksana Dudnik")
+                .system(system)
+                .role(role)
+                .build();
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void findAll() {
+    }
+
+    @Test
+    void findById() {
+    }
+
+    @Test
+    void findBySystemIdAndLogin() {
+    }
+
+    @Test
+    void findBySystemId() {
+    }
+
+    @Test
+    void deleteBySystemId() {
+    }
+}

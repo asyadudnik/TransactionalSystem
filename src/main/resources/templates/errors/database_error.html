@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head lang="en" th:include="fragments/header :: header">
+  <title th:id="metaTitle">Error page</title>
+</head>
+
+<body class="container">
+
+<div th:include="fragments/errorMessage :: errorMessage">
+  <title th:id="err" th:object="${errMsg}"></title>
+  <a th:id="err" th:title="${errMsg}"></a>
+  <div/>
+
+  <div lang="en" th:replace="fragments/footer :: footer"></div>
+
+</div>
+</body>
+</html>

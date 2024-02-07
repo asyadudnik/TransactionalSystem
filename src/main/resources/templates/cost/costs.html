@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Costs List</title>
+</head>
+
+<body>
+<h1 align="center">Costs List</h1>
+<a href="/api/costs/new">Create New Cost</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>ArticleNumber</th>
+        <th>Article type</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cost : ${listCosts}">
+        <td th:text="${cost.articleNumber}">ArticleNumber</td>
+        <td th:text="${cost.articleType}">Article type</td>
+        <td>
+            <a th:href="@{'/api/costs/edit/?id='+${cost.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/api/costs/delete/?id='+${cost.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

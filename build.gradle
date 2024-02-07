@@ -1,0 +1,94 @@
+buildscript {
+    ext {
+        springBootVersion = '3.2.2'
+        springDependenciesManagementVersion = '1.1.4'
+        springWebVersion = '5.3.16'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:${springDependenciesManagementVersion}")
+    }
+}
+
+ext {
+    springModulithVersion = "1.1.2"
+}
+allprojects {
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "idea"
+    apply plugin: "java"
+}
+
+group = 'com.optum.payment.system'
+version = '1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+}
+repositories {
+
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+    maven { url "https://repo.spring.io/libs-milestone" }
+    maven { url "https://mvnrepository.com/" }
+    maven { url "https://mvnrepository.com/artifact/" }
+    maven { url "https://repo.spring.io/milestone" }
+
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.data:spring-data-rest-webmvc:4.2.2'
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    //apache
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation 'org.apache.commons:commons-dbcp2:2.9.0'
+    //gson
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.webjars:bootstrap:5.2.3'
+    testImplementation('org.projectlombok:lombok')
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.7'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.optum.payment.system.PaymentSystemApplication'
+    }
+
+    from 'src/main/webapp', sourceSets.main.output
+
+    version = '0.1.0'
+
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+springBoot {
+    mainClass = 'com.optum.payment.system.PaymentSystemApplication'
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Edit User</title>
+</head>
+<body>
+<div align="center">
+    <h1>Edit User</h1>
+    <br/>
+    <form action="#" th:action="@{/save}" th:object="${user}" method="post">
+
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>User ID:</td>
+                <td>
+                    <input type="text" th:field="*{id}" readonly="readonly"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Login</td>
+                <td><input type="text" th:field="*${login}"/></td>
+            </tr>
+            <tr>
+                <td>User First Name:</td>
+                <td>
+                    <input type="text" th:field="*{firstName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>User Last Name:</td>
+                <td>
+                    <input type="text" th:field="*{lastName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>User Full Name:</td>
+                <td>
+                    <input type="text" th:field="*{fullName}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td><input type="text" th:field="*${email}">Email</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td><input type="text" th:field="*${gender}">Gender</td>
+            </tr>
+            <tr>
+                <td>PhoneNumber</td>
+                <td><input type="text" th:field="*${phoneNumber}"></td>
+            </tr>
+            <tr>
+                <td>Picture</td>
+                <td><input type="text" th:field="*${picture}"></td>
+            </tr>
+            <tr>
+                <td>System</td>
+                <td><input type="text" th:field="*${systemId}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>

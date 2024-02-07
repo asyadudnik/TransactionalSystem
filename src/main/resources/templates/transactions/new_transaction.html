@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Create New Transaction</title>
+</head>
+
+<body>
+<div align="center">
+    <h1 align="center">Create New Transaction</h1>
+    <br/><br/>
+    <form action="#" th:action="@{'/api/transactions/save'}" th:object="${transaction}" method="post">
+        <table border="1" cellpadding="10">
+<!--
+            <tr>
+                <td>
+                    <label th:text="${'Transaction Name'}" th:field="${transaction}"></label>
+                </td>
+                <td>
+                    <select name="Name" th:field="${transaction.systemName}">
+                        <option th:each="systemName : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
+                                th:value="${systemName}"
+                                th:text="${systemName}"/>
+                    </select>
+                </td>
+
+                <td>
+                    <p th:if="${#fields.hasErrors('systemName')}" th:errorclass="error" th:errors="*{systemName}"/>
+                </td>
+            </tr>
+-->
+<!--
+            <tr>
+                <td>
+                    <label th:text="${'System Event Name'}" th:field="${transaction.systemEventName}"/>
+                </td>
+                <td>
+                    <select name="SystemEventName" th:field="${transaction.s}">
+                        <option th:each="snm: ${T(com.optum.payment.system.entities.enums.SystemEventName).values()}"
+                                th:value="${snm}"
+                                th:text="${snm.name}"></option>
+                    </select>
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('systemEventName')}" th:errorclass="error" th:errors="*{systemEventName}"></p>
+                </td>
+            </tr>
+-->
+            <tr>
+                <td>
+                    <label th:text="${'Description'}" th:field="${transaction.description}"></label>
+                </td>
+                <td>
+                    <input type="text" th:field="${transaction.transactionDescription}">
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('transactionDescription')}" th:errorclass="error" th:errors="*{transactionDescription}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'Status'}" th:field="${transaction.status}"></label>
+                </td>
+<!--
+                <td>
+                    <select name="SystemEventName" th:field="${transaction.systemEventName}">
+                        <option th:each="snm: ${T(com.optum.payment.system.entities.enums.SystemEventName).values()}"
+                                th:value="${snm}"
+                                th:text="${snm.name}"></option>
+                    </select>
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('systemEventName')}" th:errorclass="error" th:errors="*{systemEventName}"/>
+                </td>
+-->
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'status'}" th:field="${transaction.transactionStatus}"></label>
+                </td>
+                <td>
+                    <select name="Status" th:field="${transaction.transactionStatus}">
+                        <option th:each="status: ${T(com.optum.payment.system.entities.enums.ActiveStatus).values()}" th:value="${status}" th:text="${status.name}"></option>
+                    </select>
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('transactionStatus')}" th:errorclass="error" th:errors="*{transactionStatus}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'lockStartTime'}" th:field="${transaction.lo}"></label>
+                </td>
+                <td>
+                    <input type="date" th:field="${systemEvent.lockStartTime}">
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('lockStartTime')}" th:errorclass="error" th:errors="*{lockStartTime}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'lockEndTime'}" th:field="${systemEvent.lockEndTime}"></label>
+                </td>
+                <td><input type="date" th:field="${systemEvent.lockEndTime}"></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('lockEndTime')}" th:errorclass="error" th:errors="*{lockEndTime}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" name="action">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>

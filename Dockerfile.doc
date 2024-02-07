@@ -1,0 +1,10 @@
+FROM adoptopenjdk/openjdk11:alpine-jre
+LABEL authors="OKSANA"
+ARG JAR_FILE=buid/libs/PaymentSystem-0.0.1-SNAPSHOT.jar
+WORKDIR /opt/app
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
+## sudo docker run -p 8080:8080 -t PaymentSystem:1.0
+## sudo docker run -p 80:8080 -t PaymentSystem:1.0
+## sudo docker run -p 443:8443 -t PaymentSystem:1.0
+## sudo docker build -t PaymentSystem:1.0

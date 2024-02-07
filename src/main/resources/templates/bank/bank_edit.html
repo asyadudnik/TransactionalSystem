@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Edit Bank</title>
+</head>
+<body>
+<div align="center">
+    <h1>Edit Bank</h1>
+    <br/>
+    <form action="#" th:action="@{'/api/banks/save'}" th:object="${bank}" method="post">
+        <table border="1" cellpadding="10">
+            <th></th>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="${bank.name}"/></td>
+            </tr>
+            <tr>
+                <td>IBAN</td>
+                <td><input type="text" th:field="${bank.IBANAccount}"></td>
+            </tr>
+            <tr>
+                <td>BIC</td>
+                <td><input type="text" th:field="${bank.BIC}"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>

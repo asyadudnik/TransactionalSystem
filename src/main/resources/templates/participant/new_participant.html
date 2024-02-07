@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Create New Participant</title>
+</head>
+<body>
+<div align="center">
+    <h1 align="center">Create New Participant</h1>
+    <br/><br/>
+    <form action="#" th:action="@{'/api/participants/save/'}" th:object="${participant}" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>
+                    <label th:text="${'Full Name'}" th:field="${participant.participantName}"></label>
+                </td>
+                <td><input type="text" th:field="*{participantName}"/></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('participantName')}" th:errorclass="error" th:errors="*{participantName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'Card'}" th:field="${participant.cardNumber}"></label>
+                </td>
+                <td><input type="text" th:field="*{cardNumber}"/></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('cardNumber')}" th:errorclass="error" th:errors="*{cardNumber}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'CardСVV'}" th:field="${participant.cardCVV}"></label>
+                </td>
+                <td><input type="text" th:field="*{cardCVV}"/></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('cardCVV')}" th:errorclass="error" th:errors="*{cardCVV}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'CardHolder'}" th:field="${participant.cardHolder}"></label>
+                </td>
+                <td><input type="text" th:field="*{cardHolder}"/></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('cardHolder')}" th:errorclass="error" th:errors="*{cardHolder}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'cardValidTerm'}" th:field="${participant.cardValidTerm}"></label>
+                </td>
+                <td><input type="text" th:field="*{cardValidTerm}"/></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('cardValidTerm')}" th:errorclass="error"
+                       th:errors="*{cardValidTerm}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'status'}" th:field="${participant.participantStatus}"></label>
+                </td>
+                <td><input type="text" th:field="*{participantStatus}"/></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('participantStatus')}" th:errorclass="error" th:errors="*{participantStatus}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'lockStartTime'}" th:field="${participant.lockStartTime}"></label>
+                </td>
+                <td>
+                    <input type="date" th:value="${participant.lockStartTime}">
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('lockStartTime')}" th:errorclass="error"
+                       th:errors="*{lockStartTime}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'lockEndTime'}" th:field="${participant.lockEndDate}"></label>
+                </td>
+                <td>
+                    <input type="date" th:value="${participant.lockEndDate}">
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('lockEndTime')}" th:errorclass="error"
+                       th:errors="${participant.lockEndDate}"/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="3">
+                    <button type="submit" name="action">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

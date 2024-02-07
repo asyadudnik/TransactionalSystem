@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Create New System</title>
+</head>
+
+<body>
+<div align="center">
+    <h1 align="center">Create New System</h1>
+    <br/><br/>
+    <form action="#" th:action="@{'/api/systems/save'}" th:object="${system}" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>
+                    <label th:text="${'System Name'}" th:field="${system.systemName}"></label>
+                </td>
+                <td>
+                    <select name="SystemName" th:field="${system.systemName}">
+                        <option th:each="systemName : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
+                                th:value="${systemName}"
+                                th:text="${systemName.name}"/>
+                    </select>
+                </td>
+                <td>
+                    <p th:if="${#fields.hasErrors('systemName')}" th:errorclass="error" th:errors="*{systemName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'System Description'}" th:field="${system.systemDescription}"></label>
+                </td>
+                <td><input type="text" th:field="${system.systemDescription}"></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('systemDescription')}" th:errorclass="error" th:errors="*{systemDescription}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:text="${'Db Connection String'}" th:field="${system.systemDbConnectionString}"></label>
+                </td>
+                <td><input type="text" th:field="${system.systemDbConnectionString}"></td>
+                <td>
+                    <p th:if="${#fields.hasErrors('systemDbConnectionString')}" th:errorclass="error" th:errors="*{systemDbConnectionString}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>

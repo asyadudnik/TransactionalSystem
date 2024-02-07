@@ -1,0 +1,112 @@
+package com.optum.payment.system.service;
+
+import com.optum.payment.system.entities.Role;
+import com.optum.payment.system.entities.System;
+import com.optum.payment.system.entities.User;
+import com.optum.payment.system.entities.enums.Gender;
+import com.optum.payment.system.entities.enums.RoleName;
+import com.optum.payment.system.repositories.UserRepository;
+import com.optum.payment.system.services.UserService;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Date;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@TestConfiguration
+public class PaymentSystemService {
+    @Autowired
+    private DataSource dataSource;
+    @Autowired
+    public UserRepository userRepository;
+    @Autowired
+    public UserService userService;
+    private System system;
+    private Role role;
+
+    @Before
+    public void cleanTestData() throws Exception {
+/*
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "delete from USERS where email not like ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%@hotmail.com");
+            ps.executeUpdate();
+        }
+*/
+        system = new System();
+        system.setSystemName("System1");
+        role = new Role();
+        role.setDescription("Admin");
+        role.setName(RoleName.ADMIN.name());
+
+    }
+
+    @Test
+    public void testFindAllContact() {
+        List<User> users = userService.findAll();
+        //assertNotNull(users);
+        assertTrue(users.size() == 0);
+    }
+
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
+
+    @Test
+    public void testSaveUpdateDeleteContact() throws Exception {
+       User user1 = new User();
+        user1.setEmail("test@email");
+        user1.setGender(Gender.FEMALE);
+        user1.setLogin("login1");
+        user1.setPassword("password1");
+        user1.setBirthDate(new Date(2023, 9, 28));
+        user1.setNotes("");
+        user1.setFirstName("user1");
+        user1.setLastName("user1");
+        user1.setFullName("user1 user1");
+        user1.setSystem(system);
+        user1.setRole(role);
+        User saved = userService.save(user1);
+
+        assertThat(userRepository.findById (saved.getId())).isNotNull();
+
+        assertNotNull(saved.getId());
+
+
+        User findContact = userService.get(saved.getId());
+        assertEquals("user1", findContact.getFirstName());
+        assertEquals("test@email", findContact.getEmail());
+
+        // update record
+        saved.setEmail("ace@whitebeardpirat.es");
+        userService.save(saved);
+
+        // test after update
+        findContact = userService.get(saved.getId());
+        assertEquals("ace@whitebeardpirat.es", findContact.getEmail());
+
+        // test delete
+        userService.delete(saved.getId());
+
+        // query after delete
+        exceptionRule.expect(ResourceNotFoundException.class);
+        userService.get(saved.getId());
+    }
+}
+

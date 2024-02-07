@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head lang="en" th:include="fragments/header :: header">
+  <title th:id="metaTitle">Transactions List</title>
+</head>
+<body>
+<h1 align="center">Users List</h1>
+<a href="/api/transactions/new">Create New User</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+  <thead>
+  <tr>
+    <th>System Name</th>
+    <th>SystemEventName</th>
+    <th>Description</th>
+    <th>Payer IBAN Account</th>
+    <th>Payer Full Name</th>
+    <th>Recipient IBAN Account</th>
+    <th>Recipient Full Name</th>
+    <th>Debit</th>
+    <th>Credit</th>
+    <th>SUM</th>
+    <th>Currency</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="transaction : ${listTransactions}">
+    <!--<td th:text="${transaction.systemName}">SystemName</td>-->
+    <!--<td th:text="${transaction.systemEventName}">SystemEventName</td>-->
+    <td th:text="${transaction.transactionDescription}">Description</td>
+    <td th:text="${transaction.participantSender.participantName}">PayerFullName</td>
+    <td th:text="${transaction.participantSender.IBANAccount}">PayerIBANAccount</td>
+    <td th:text="${transaction.participantReceiver.participantName}">RecipientFullName</td>
+    <td th:text="${transaction.participantReceiver.IBANAccount}">RecipientIBANAccount</td>
+    <td th:text="${transaction.participantDebit}">Debit</td>
+    <td th:text="${transaction.participantCredit}">Credit</td>
+    <td th:text="${transaction.participantSum}">SUM</td>
+    <td th:text="${transaction.participantCurrency}">CURRENCY</td>
+    <td>
+      <a th:href="@{'/api/transactions/edit/?id='+${transaction.id}}">Edit</a>
+      <a th:href="@{'/api/transactions/delete/?id='+${transaction.id}}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>

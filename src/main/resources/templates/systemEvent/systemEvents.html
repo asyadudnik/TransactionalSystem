@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">System Event List</title>
+</head>
+
+<body>
+<h1 align="center">System Event List</h1>
+<a href="/api/systemEvents/new">Create New System Event</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>System Event Name</th>
+        <th>System Name</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Lock start date</th>
+        <th>Lock end date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="systemEvent : ${listSystemEvents}">
+        <td th:text="${systemEvent.name}">System Event Name</td>
+        <td th:text="${systemEvent.systemName}">System Name</td>
+        <td th:text="${systemEvent.description}">System Event Description</td>
+        <td th:text="${systemEvent.priority}">System Event priority</td>
+        <td th:text="${systemEvent.status}">System Event status</td>
+        <td th:text="${systemEvent.lockStartTime}">Lock start date</td>
+        <td th:text="${systemEvent.lockEndTime}">Lock end date</td>
+        <td>
+            <a th:href="@{'/api/systemEvents/edit/?id='+${systemEvent.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/api/systemEvents/delete/?id='+${systemEvent.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

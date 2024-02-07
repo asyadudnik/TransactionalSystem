@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">SourceModules List</title>
+</head>
+
+<body>
+<h1 align="center">Systems List</h1>
+<a href="/api/sourceModules/new">Create New SourceModule</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Address</th>
+        <th>Type</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sourceModule : ${sourceModules}">
+        <td th:text="${sourceModule.name}">Name</td>
+        <td th:text="${sourceModule.description}">Description</td>
+        <td th:text="${sourceModule.address}">Address</td>
+        <td th:text="${sourceModule.type}">Type</td>
+        <td>
+            <a th:href="@{'/api/sourceModules/edit/?id='+${sourceModule.id}}">Edit</a>
+            <a th:href="@{'/api/sourceModules/delete/?id='+${sourceModule.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:include="fragments/header :: header">
+    <title th:id="metaTitle">Systems List</title>
+</head>
+
+<body>
+<h1 align="center">Systems List</h1>
+<a href="/api/systems/new">Create New System</a>
+<br/><br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>System Name</th>
+        <th>System Description</th>
+        <th>DbConnectionString</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="system : ${systems}">
+        <td>
+            <select name="systemName" th:field="${system.systemName}">
+                <option th:each="systemName : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
+                        th:value="${systemName}"
+                        th:text="${systemName.name}"/>
+            </select>
+        </td>
+
+        <td th:text="${system.systemDescription}">System Description</td>
+        <td th:text="${system.systemDbConnectionString}">DbConnectionString</td>
+        <td>
+            <button type="submit" th:href="@{'/api/systems/edit/?id='+${system.id}}">Edit</button>
+            &nbsp;&nbsp;&nbsp;
+            <button th:href="@{'/api/systems/delete/?id='+${system.id}}">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div lang="en" th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>
