@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +21,7 @@ import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Controller
+@RestController
 @RequestMapping(value = "/payment/api/users")
 @Validated
 public class UserController {
@@ -36,6 +34,13 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+
+    @GetMapping(value = "/login/{id},{pwd}", produces = APPLICATION_JSON_VALUE)
+    public User loginService(@PathVariable String id, @PathVariable String pwd) {
+        return this.userService.register(id, pwd);
+    }
+
 
 
     @GetMapping(value = "/")
@@ -61,8 +66,9 @@ public class UserController {
         }
     }
 
+
     @GetMapping(value = "/new")
-    public ModelAndView showNewUserPage(Model model) {
+    public ModelAndView showNewUserPage() {
         ModelAndView modelAndView = new ModelAndView("/users/new_user");
         User user = new User();
         modelAndView.addObject("user", user);
@@ -94,7 +100,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit/{userId}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String showEditUserPage(@PathVariable(name = "userId") Long id) throws ChangeSetPersister.NotFoundException {
+    public String showEditUserPage(@PathVariable(name = "userId") Long id){
         ModelAndView modelAndView = new ModelAndView("/users/edit_user");
         User user = userService.get(id);
         if (user != null) {
@@ -109,7 +115,7 @@ public class UserController {
 
 
     @DeleteMapping(value = "/delete/{id}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String deleteUser(@PathVariable(name = "id") Long id) throws ChangeSetPersister.NotFoundException {
+    public String deleteUser(@PathVariable(name = "id") Long id)  {
         userService.delete(id);
         return "redirect:/";
     }

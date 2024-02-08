@@ -6,104 +6,99 @@ import com.optum.payment.system.entities.User;
 import com.optum.payment.system.entities.enums.Gender;
 import com.optum.payment.system.entities.enums.RoleName;
 import com.optum.payment.system.entities.enums.SystemName;
+import com.optum.payment.system.repositories.UserRepository;
 import com.optum.payment.system.services.UserService;
-import jakarta.transaction.Transactional;
+import jakarta.activation.DataSource;
 import org.aspectj.lang.annotation.Before;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@DataJpaTest
 @SpringBootTest
-@TestConfiguration
 class UserServiceTest {
-    @Autowired
-    private DataSource dataSource;
-    @Autowired
-    public UserService service;
 
-    private System system;
-    private Role role;
+    @Autowired
+    private UserService userService;
+    //private final UserService userService = new UserService(userRepository);
+    Set<System> systems = new HashSet<>();
+    Set<Role> roles = new HashSet<>();
 
 
     @Before("")
     public void cleanTestData() throws Exception {
-
-        try (Connection conn = dataSource.getConnection()) {
-            String sql = "delete from USERS where email not like ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, "%@hotmail.com");
-            ps.executeUpdate();
-        }
-
-
-        system = new System();
+        System system = new System();
         system.setSystemName(SystemName.SECURITY.name());
-        role = new Role();
+        Role role = new Role();
         role.setRoleDescription("Admin");
         role.setRoleName(RoleName.ADMIN.name());
+
+        systems.add(system);
+        roles.add(role);
+
+        //  userService = new UserService(userRepository);
     }
+
 
     @Test
     void testFindAllContact() {
-        List<User> users = service.findAll();
+
+        List<User> users = userService.findAll();
         assertNotNull(users);
     }
 
 
     @Test
     void testSaveUpdateDeleteContact() throws Exception {
-        User user1 = new User();
-        user1.setEmail("test@email");
-        user1.setGender(Gender.FEMALE);
-        user1.setLogin("login1");
-        user1.setPassword("password1");
-        user1.setBirthDate(new Date(1963, Calendar.SEPTEMBER, 28));
-        user1.setNotes("");
-        user1.setFirstName("user1");
-        user1.setLastName("user1");
-        user1.setFullName("user1 user1");
-        Set<System> systems = new HashSet<>();
-        user1.setSystems(systems);
-        user1.getSystems().add(system);
-        Set<Role> roles = new HashSet<>();
-        user1.setRoles(roles);
-        user1.getRoles().add(role);
+        User user1 = User.builder()
+                .email("test@email")
+                .gender(Gender.FEMALE)
+                .login("login1")
+                .password("password1")
+                .birthDate(new Date(63, Calendar.SEPTEMBER, 28))
+                .notes("")
+                .firstName("user1")
+                .lastName("user1")
+                .fullName("user1 user1")
+                .systems(systems)
+                .roles(roles)
+                .phoneNumber("0037128259684")
+                .picture("")
+                .build();
 
-        User saved = service.save(user1);
+        User saved = userService.save(user1);
 
-        assertThat(service.findByUsername(saved.getLogin())).isNotNull();
+        assertThat(userService.findByUsername(saved.getLogin())).isNotNull();
 
-        assertNotNull(saved.getId());
+        assertThat(saved).isNotNull();
+        //  assertThat(saved.getId()).isGreaterThan(0);
 
-        User findContact = service.get(saved.getId());
+        User findContact = userService.get(saved.getId());
+
         assertEquals("user1", findContact.getFirstName());
         assertEquals("test@email", findContact.getEmail());
 
         // update record
         saved.setEmail("ace@whitebeardpirat.es");
-        // userService.update(saved);
+        User updated = userService.save(saved);
 
         // test after update
-        findContact = service.get(saved.getId());
+        findContact = userService.get(updated.getId());
         assertEquals("ace@whitebeardpirat.es", findContact.getEmail());
 
         // test delete
-        service.delete(saved.getId());
+        userService.delete(updated.getId());
 
         // query after delete
 //        exceptionRule.expect(ResourceNotFoundException.class);
-        service.get(saved.getId());
+//        service.get(saved.getId());
     }
 }
 

@@ -9,11 +9,12 @@ import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.optum.payment.system.utils.EnumUtils.getEnumFromString;
 
@@ -49,7 +50,7 @@ public class SystemEventService {
     private com.optum.payment.system.entities.System createSystem(String systemName) {
         if (!Strings.isBlank(systemName)) {
             if (systemService.findBySystemName(systemName).isPresent()) {
-                return systemService.findBySystemName(systemName).orElseThrow(ResourceNotFoundException::new);
+                return systemService.findBySystemName(systemName).orElseThrow(NoSuchElementException::new);
             } else {
                 System systemCreated = new System();
                 systemCreated.setSystemName(getEnumFromString(SystemName.class, systemName).name());
@@ -69,7 +70,7 @@ public class SystemEventService {
 
     public SystemEvent get(long id) {
         if (repo.findById(id).isPresent()) {
-            return repo.findById(id).orElseThrow(ResourceNotFoundException::new);
+            return repo.findById(id).orElseThrow(NoSuchElementException::new);
         } else {
             if(logger.isDebugEnabled()) {
                 logger.error("Can't find system with id {}", id);

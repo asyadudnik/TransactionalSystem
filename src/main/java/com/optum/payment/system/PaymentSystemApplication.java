@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.optum.payment.system.entities.User;
 import com.optum.payment.system.global.InstallConstants;
 import com.optum.payment.system.services.UserService;
-import com.optum.payment.system.utils.JsonUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
-import java.util.Optional;
 import java.util.TimeZone;
 
 import static com.optum.payment.system.global.InstallConstants.PASS;
@@ -73,14 +71,8 @@ public class PaymentSystemApplication implements CommandLineRunner {
     public void run(String... args) throws JsonProcessingException {
         User user = new User(USER, PASS);
 
-        Optional<User> value = userService.findByUsername(USER);
-        if (value.isPresent()) {
-            User one = value.get();
-            if(log.isDebugEnabled()) {
-                log.info("user one = {}", JsonUtils.toJson(one));
-            }
-        } else {
-            userService.save(user);
+        User newUser = userService.save(user);
+        if (newUser != null) {
             log.info("springUser saved...");
         }
     }

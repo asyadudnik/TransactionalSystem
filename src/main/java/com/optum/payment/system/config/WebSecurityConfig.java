@@ -17,6 +17,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+//@EnableWebMvc
 public class WebSecurityConfig {
 
     /**
@@ -29,7 +30,11 @@ public class WebSecurityConfig {
         var builder = User.builder().passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode);
 
         var springuser = builder.username(USER).password(PASS).roles(RoleName.ADMIN.name()).build();
-        var root = builder.username("root").password("Libra28091963!").roles(RoleName.ADMIN.name(), RoleName.PROGRAMMER.name()).build();
+        var root = builder
+                .username("root")
+                .password("Libra28091963!")
+                .roles(RoleName.ADMIN.name(), RoleName.PROGRAMMER.name())
+                .build();
 
         return new InMemoryUserDetailsManager(springuser, root);
     }

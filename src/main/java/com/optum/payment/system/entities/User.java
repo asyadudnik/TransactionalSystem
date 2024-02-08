@@ -100,5 +100,10 @@ public class User extends Audit {
     //@NotNull(message = "Please enter role name")
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "id")
+/*
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(EnumType.STRING)
+*/
     private Set<Role> roles;
 }
