@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/new")
-    public ModelAndView showNewUserPage(Model model) {
+    public ModelAndView showNewUserPage() {
         ModelAndView modelAndView = new ModelAndView("/users/new_user");
         User user = new User();
         modelAndView.addObject("user", user);
