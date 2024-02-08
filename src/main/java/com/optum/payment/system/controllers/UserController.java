@@ -30,6 +30,7 @@ public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
+    private static final String NAME_ERR_MESSAGE = "errMsg";
 
     @Autowired
     public UserController(UserService userService) {
@@ -40,18 +41,22 @@ public class UserController {
     @GetMapping(value = "/")
     public String listAll(ModelAndView model) {
         List<User> users = userService.findAll();
-        model.addObject(users);
+        logger.info("users size = {} ", users.size());
+        Map<String, Object> map = new HashMap<>();
+        map.put("users", users);
+
+        model.addObject(map);
         try {
             users.forEach(usr ->
                     logger.info(JsonUtils.toJson(usr))
             );
             return "/users/usersList";
         } catch (Exception ex) {
-            String errMsg = ex.getMessage();
+            String errorMsg = ex.getMessage();
             Map<String, String> errMap = new HashMap<>();
-            errMap.put("error", errMsg);
+            errMap.put(NAME_ERR_MESSAGE, errorMsg);
             model.addObject(errMap);
-            logger.error(errMsg);
+            logger.error(errorMsg);
             return "/errors/error";
         }
     }
@@ -62,7 +67,7 @@ public class UserController {
         User user = new User();
         modelAndView.addObject("user", user);
         logger.info(user.getFullName());
-        Map<String, Object> map=new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("user", user);
         modelAndView.addObject("map", map);
         return modelAndView;
@@ -82,8 +87,8 @@ public class UserController {
             );
             return "/users/edit_user";
         } catch (Exception ex) {
-            String errMsg = ex.getMessage();
-            modelAndView.addObject("errMsg", errMsg);
+            String errorMsg = ex.getMessage();
+            modelAndView.addObject(NAME_ERR_MESSAGE, errorMsg);
             return "/errors/error";
         }
     }
@@ -96,8 +101,8 @@ public class UserController {
             modelAndView.addObject("user", user);
             return modelAndView.getViewName();
         } else {
-            var errMsg = "USER NOT FOUND";
-            modelAndView.addObject("errMsg", errMsg);
+            var errorMsg = "USER NOT FOUND";
+            modelAndView.addObject(NAME_ERR_MESSAGE, errorMsg);
             return "redirect:/errors/error";
         }
     }
