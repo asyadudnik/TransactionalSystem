@@ -1,6 +1,5 @@
 package com.optum.payment.system;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.optum.payment.system.entities.User;
 import com.optum.payment.system.global.InstallConstants;
 import com.optum.payment.system.services.UserService;

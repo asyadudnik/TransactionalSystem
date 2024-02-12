@@ -6,8 +6,6 @@ import com.optum.payment.system.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,15 +111,6 @@ public class UserService {
         });
         return this.repo.save(new User(username, password));
     }
-
-/*
-    public Page<User> findAll(Pageable pageable) {
-
-        Assert.notNull(pageable, "Pageable must not be null!");
-
-        return repo.findAll(pageable);
-    }
-*/
 
     /**
      * Returns the {@link User}
