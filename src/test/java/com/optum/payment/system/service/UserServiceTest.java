@@ -6,13 +6,10 @@ import com.optum.payment.system.entities.User;
 import com.optum.payment.system.entities.enums.Gender;
 import com.optum.payment.system.entities.enums.RoleName;
 import com.optum.payment.system.entities.enums.SystemName;
-import com.optum.payment.system.repositories.UserRepository;
 import com.optum.payment.system.services.UserService;
-import jakarta.activation.DataSource;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
@@ -27,13 +24,13 @@ class UserServiceTest {
 
     @Autowired
     private UserService userService;
-    //private final UserService userService = new UserService(userRepository);
+
     Set<System> systems = new HashSet<>();
     Set<Role> roles = new HashSet<>();
 
 
     @Before("")
-    public void cleanTestData() throws Exception {
+    public void cleanTestData(){
         System system = new System();
         system.setSystemName(SystemName.SECURITY.name());
         Role role = new Role();
@@ -56,7 +53,7 @@ class UserServiceTest {
 
 
     @Test
-    void testSaveUpdateDeleteContact() throws Exception {
+    void testSaveUpdateDeleteContact(){
         User user1 = User.builder()
                 .email("test@email")
                 .gender(Gender.FEMALE)

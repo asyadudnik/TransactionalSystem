@@ -114,11 +114,6 @@ public class UserService {
         return this.repo.save(new User(username, password));
     }
 
-    /**
-     * Returns a {@link Page} of {@link User} for the given {@link Pageable}.
-     *
-     * @param pageable must not be {@literal null}.
-     */
 /*
     public Page<User> findAll(Pageable pageable) {
 

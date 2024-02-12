@@ -47,7 +47,7 @@ public class SystemEventService {
         repo.save(systemEvent);
     }
 
-    private com.optum.payment.system.entities.System createSystem(String systemName) {
+    public System createSystem(String systemName) {
         if (!Strings.isBlank(systemName)) {
             if (systemService.findBySystemName(systemName).isPresent()) {
                 return systemService.findBySystemName(systemName).orElseThrow(NoSuchElementException::new);
@@ -55,17 +55,12 @@ public class SystemEventService {
                 System systemCreated = new System();
                 systemCreated.setSystemName(getEnumFromString(SystemName.class, systemName).name());
                 systemCreated.setSystemDescription(systemCreated.getSystemName());
-                System createdSystem = systemService.save(systemCreated);
-                if (createdSystem == null) {
-                    logger.error("Can't create system with name {}.", systemName);
-                    return null;
-                }
-                return createdSystem;
+                return systemService.save(systemCreated);
             }
         } else {
             logger.error("Can't create system with empty name.");
-            return null;
         }
+        return null;
     }
 
     public SystemEvent get(long id) {

@@ -68,7 +68,7 @@ public class PaymentSystemApplication implements CommandLineRunner {
     }
 
 
-    public void run(String... args) throws JsonProcessingException {
+    public void run(String... args){
         User user = new User(USER, PASS);
 
         User newUser = userService.save(user);
