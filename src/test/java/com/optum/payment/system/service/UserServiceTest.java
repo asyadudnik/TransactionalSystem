@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.yaml.snakeyaml.emitter.Emitter;
 
 import java.util.*;
 
@@ -94,8 +95,10 @@ class UserServiceTest {
         userService.delete(updated.getId());
 
         // query after delete
-//        exceptionRule.expect(ResourceNotFoundException.class);
-//        service.get(saved.getId());
+/*
+        exceptionRule.expect(ResourceNotFoundException.class);
+        service.get(saved.getId());
+*/
     }
 }
 
