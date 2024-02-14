@@ -1,20 +1,21 @@
 package com.optum.payment.system;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-import static com.optum.payment.system.global.InstallConstants.DATABASE_NAME;
+import static com.optum.payment.system.global.InstallConstants.DB_URL;
 import static com.optum.payment.system.global.InstallConstants.JDBC_DRIVER;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest()
-class PaymentSystemApplicationTest {
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME; //+ "?user=" + USER + "&password=" + PASS;
-
+@ExtendWith(MockitoExtension.class)
+@WebAppConfiguration
+public class PaymentSystemApplicationTest {
     @Test
     void contextLoads() throws ClassNotFoundException {
         Class.forName(JDBC_DRIVER);

@@ -9,9 +9,10 @@ import com.optum.payment.system.entities.enums.SystemName;
 import com.optum.payment.system.services.UserService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.yaml.snakeyaml.emitter.Emitter;
 
 import java.util.*;
 
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@DataJpaTest
 @SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
     @Autowired
@@ -100,5 +102,7 @@ class UserServiceTest {
         service.get(saved.getId());
 */
     }
+
+
 }
 
