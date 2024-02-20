@@ -24,12 +24,17 @@ public class WebSecurityConfig {
      * This section defines the user accounts which can be used for authentication as well as the roles each user has.
      */
     @Bean
-    InMemoryUserDetailsManager userDetailsManager() {
+    public InMemoryUserDetailsManager userDetailsManager() {
 
 
-        var builder = User.builder().passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode);
+        var builder = User.builder()
+                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode);
 
-        var springuser = builder.username(USER).password(PASS).roles(RoleName.ADMIN.name()).build();
+        var springuser = builder
+                .username(USER)
+                .password(PASS)
+                .roles(RoleName.ADMIN.name())
+                .build();
         var root = builder
                 .username("root")
                 .password("Libra28091963!")
@@ -42,7 +47,9 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher(EndpointRequest.toAnyEndpoint());
-        http.authorizeHttpRequests(requests -> requests.anyRequest().hasRole("ADMIN"));
+        http.authorizeHttpRequests(requests -> requests
+                .requestMatchers("/user/login/")
+                .hasRole("ADMIN")).build();
         http.httpBasic(withDefaults());
         return http.build();
     }
