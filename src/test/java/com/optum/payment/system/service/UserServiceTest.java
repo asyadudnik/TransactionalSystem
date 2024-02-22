@@ -97,10 +97,8 @@ class UserServiceTest {
         userService.delete(updated.getId());
 
         // query after delete
-/*
-        exceptionRule.expect(ResourceNotFoundException.class);
-        service.get(saved.getId());
-*/
+//        exceptionRule.expect(ResourceNotFoundException.class);
+//        service.get(saved.getId());
     }
 
 
