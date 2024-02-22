@@ -111,10 +111,10 @@
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'System'}" th:field="${user.systems}"></label>
+                    <label th:text="${'Systems'}" th:field="${user.systems}"></label>
                 </td>
                 <td>
-                    <select name="System" th:field="${user.systemName}">
+                    <select name="System" th:field="${user.systems}">
                         <option th:each="syst : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
                                 th:value="${syst}"
                                 th:text="${syst.name}"/>
@@ -126,7 +126,7 @@
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'RoleName'}" th:field="${user.roles}"></label>
+                    <label th:text="${'Roles'}" th:field="${user.roles}"></label>
                 </td>
                 <td>
                     <label>
