@@ -1,0 +1,62 @@
+/*
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
+    public User save(User user) {
+        if (user != null) {
+            if (logger.isDebugEnabled()) {
+                logger.info(JsonUtils.toJson(user));
+            }
+        } else {
+            logger.error("User not filled.");
+            return null;
+        }
+        Optional<User> userOptional = userRepository.findByLogin(user.getLogin());
+        if (userOptional.isPresent()) {
+            logger.info("Saving of user = {}", userOptional);
+            return userOptional.get();
+        } else {
+            return userRepository.save(user);
+        }
+    }
+*/
+
+/*
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
+    public void update(User user) {
+        if (user != null) {
+            if (logger.isDebugEnabled()) {
+                logger.info(JsonUtils.toJson(user));
+            }
+        } else {
+            logger.error("User not filled.");
+            return;
+        }
+        Optional<User> userOptional = userRepository.findByLogin(user.getLogin());
+        if (userOptional.isPresent()) {
+            logger.info("Saving of user = {}", userOptional);
+            User recordInDatabase = userOptional.get();
+            if (!recordInDatabase.equals(user)) {
+                User updated = User.builder()
+                        .id(recordInDatabase.getId())
+                        .birthDate(user.getBirthDate())
+                        .email(user.getEmail())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .notes(user.getNotes())
+                        .roles(user.getRoles())
+                        .fullName(user.getFullName())
+                        .gender(user.getGender())
+                        .password(user.getPassword())
+                        .phoneNumber(user.getPhoneNumber())
+                        .picture(user.getPicture())
+                        .systems(user.getSystems())
+                        .build();
+                updated.setCreated(recordInDatabase.getCreated());
+                updated.setUpdated(new Date());
+                updated.setCreatedBy(recordInDatabase.getCreatedBy());
+               userRepository.save(updated);
+            }
+        } else {
+            userRepository.save(user);
+        }
+    }
+*/
