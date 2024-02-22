@@ -25,7 +25,6 @@ public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
-    private static final String NAME_ERR_MESSAGE = "errMsg";
 
     @Autowired
     public UserController(UserService userService) {
@@ -43,34 +42,29 @@ public class UserController {
     @GetMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     public String listAll(ModelAndView model) {
         List<User> users = userService.findAll();
-        logger.info("users size = {} ", users.size());
-        Map<String, Object> map = new HashMap<>();
-        map.put("users", users);
-
-        model.addObject(map);
+        model.addObject(users);
         try {
             users.forEach(usr ->
                     logger.info(JsonUtils.toJson(usr))
             );
             return "/users/usersList";
         } catch (Exception ex) {
-            String errorMsg = ex.getMessage();
+            String errMsg = ex.getMessage();
             Map<String, String> errMap = new HashMap<>();
-            errMap.put(NAME_ERR_MESSAGE, errorMsg);
+            errMap.put("error", errMsg);
             model.addObject(errMap);
-            logger.error(errorMsg);
+            logger.error(errMsg);
             return "/errors/error";
         }
     }
 
-
     @GetMapping(value = "/new")
-    public ModelAndView showNewUserPage() {
+    public ModelAndView showNewUserPage(Model model) {
         ModelAndView modelAndView = new ModelAndView("/users/new_user");
         User user = new User();
         modelAndView.addObject("user", user);
         logger.info(user.getFullName());
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map=new HashMap<>();
         map.put("user", user);
         modelAndView.addObject("map", map);
         return modelAndView;
@@ -90,29 +84,29 @@ public class UserController {
             );
             return "/users/edit_user";
         } catch (Exception ex) {
-            String errorMsg = ex.getMessage();
-            modelAndView.addObject(NAME_ERR_MESSAGE, errorMsg);
+            String errMsg = ex.getMessage();
+            modelAndView.addObject("errMsg", errMsg);
             return "/errors/error";
         }
     }
 
     @PostMapping(value = "/edit/{userId}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String showEditUserPage(@PathVariable(name = "userId") Long id){
+    public String showEditUserPage(@PathVariable(name = "userId") Long id) throws ChangeSetPersister.NotFoundException {
         ModelAndView modelAndView = new ModelAndView("/users/edit_user");
         User user = userService.get(id);
         if (user != null) {
             modelAndView.addObject("user", user);
             return modelAndView.getViewName();
         } else {
-            var errorMsg = "USER NOT FOUND";
-            modelAndView.addObject(NAME_ERR_MESSAGE, errorMsg);
+            var errMsg = "USER NOT FOUND";
+            modelAndView.addObject("errMsg", errMsg);
             return "redirect:/errors/error";
         }
     }
 
 
     @DeleteMapping(value = "/delete/{id}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String deleteUser(@PathVariable(name = "id") Long id)  {
+    public String deleteUser(@PathVariable(name = "id") Long id) throws ChangeSetPersister.NotFoundException {
         userService.delete(id);
         return "redirect:/";
     }
