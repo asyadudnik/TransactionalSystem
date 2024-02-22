@@ -12,7 +12,7 @@
 <div align="center">
     <h1 align="center">Create New User</h1>
     <br/><br/>
-    <form action="#" th:action="@{'/api/users/save/'}" th:object="${user}" method="post">
+    <form action="#" th:action="@{'/payment/api/users/save/'}" th:object="${user}" method="post">
         <table border="1" cellpadding="10">
             <tr>
                 <td>
@@ -121,42 +121,48 @@
                     </select>
                 </td>
                 <td>
-                    <p th:if="${#fields.hasErrors('systemName')}" th:errorclass="error" th:errors="*{systemName}"></p>
+                    <p th:if="${#fields.hasErrors('systems')}" th:errorclass="error" th:errors="*{systems}"></p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'RoleName'}" th:field="${user.roleName}"></label>
+                    <label th:text="${'RoleName'}" th:field="${user.roles}"></label>
                 </td>
                 <td>
-                    <select name="Role" th:field="${user.roleName}">
-                        <option th:each="rol : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
-                                th:value="${rol}"
-                                th:text="${rol.name}"/>
-                    </select>
+                    <label>
+                        <select name="Role" th:field="${user.roles}">
+                            <option th:each="rol : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
+                                    th:value="${rol}"
+                                    th:text="${rol.name}"/>
+                        </select>
+                    </label>
                 </td>
                 <td>
-                    <p th:if="${#fields.hasErrors('roleName')}" th:errorclass="error" th:errors="*{roleName}"/>
+                    <p th:if="${#fields.hasErrors('roles')}" th:errorclass="error" th:errors="*{roles}"></p>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label th:text="${'Notes'}" th:field="${user.notes}"></label>
                 </td>
-                <td><input type="text" th:field="${user.notes}"></td>
+                <td><label>
+                    <input type="text" th:field="${user.notes}">
+                </label></td>
                 <td>
-                    <p th:if="${#fields.hasErrors('notes')}" th:errorclass="error" th:errors="*{notes}"/>
+                    <p th:if="${#fields.hasErrors('notes')}" th:errorclass="error" th:errors="*{notes}"></p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'birthDay'}" th:field="${user.birthDay}"></label>
+                    <label th:text="${'birthDay'}" th:field="${user.birthDate}"></label>
                 </td>
                 <td>
-                    <input type="date" th:value="${user.birthDay}"  th:field="${user.birthDay}" class="form-control">
+                    <label>
+                        <input type="date" th:value="${user.birthDate}"  th:field="${user.birthDate}" class="form-control">
+                    </label>
                 </td>
                 <td>
-                    <p th:if="${#fields.hasErrors('birthDay')}" th:errorclass="error" th:errors="*{birthDay}"/>
+                    <p th:if="${#fields.hasErrors('birthDate')}" th:errorclass="error" th:errors="*{birthDate}"></p>
                 </td>
             </tr>
             <tr>

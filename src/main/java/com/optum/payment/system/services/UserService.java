@@ -6,17 +6,12 @@ import com.optum.payment.system.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("userService")
 @Transactional
@@ -37,7 +32,7 @@ public class UserService {
         return users;
     }
 
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
+   // @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
     public User save(User user) {
         if (user != null) {
             if (logger.isDebugEnabled()) {
@@ -47,18 +42,38 @@ public class UserService {
             logger.error("User not filled.");
             return null;
         }
-        Optional<User> userOptional = repo.findByLogin(user.getLogin());
+        Optional<User> userOptional = this.repo.findByLogin(user.getLogin());
         if (userOptional.isPresent()) {
-            logger.info("Saving of user = {}" , userOptional);
+            logger.info("Saving of user = {}", userOptional);
             if (user.equals(userOptional.get())) {
                 return userOptional.get();
             } else {
-                    logger.info("User {} already exist", user.getLogin());
-                    return user;
-                }
+                logger.info("User {} already exist", user.getLogin());
+                User realUser = userOptional.get();
+                User updated = User.builder()
+                        .id(realUser.getId())
+                        .birthDate(user.getBirthDate())
+                        .email(user.getEmail())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .notes(user.getNotes())
+                        .roles(user.getRoles())
+                        .fullName(user.getFullName())
+                        .gender(user.getGender())
+                        .password(user.getPassword())
+                        .phoneNumber(user.getPhoneNumber())
+                        .picture(user.getPicture())
+                        .systems(user.getSystems())
+                        .login(user.getLogin())
+                        .build();
+                updated.setCreatedBy(realUser.getCreatedBy());
+                updated.setCreated(realUser.getCreated());
+                updated.setUpdated(new Date());
+
+                return this.repo.save(updated);
             }
-        else {
-            return repo.save(user);
+        } else {
+            return this.repo.save(user);
         }
     }
 
@@ -67,18 +82,20 @@ public class UserService {
         return repo.existsById(id);
     }
 
-    public User get(Long id) throws ChangeSetPersister.NotFoundException {
+    public User get(Long id) {
+
         Optional<User> value = this.repo.findById(id);
         if (value.isPresent()) {
             return value.get();
         } else {
-            throw new ChangeSetPersister.NotFoundException();
+            throw new NoSuchElementException();
         }
     }
+
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
-    public void delete(long id) throws ChangeSetPersister.NotFoundException {
+    public void delete(long id) {
         if (!existsById(id)) {
-            throw new ChangeSetPersister.NotFoundException();
+            throw new NoSuchElementException();
         } else {
             this.repo.deleteById(id);
         }
@@ -93,18 +110,6 @@ public class UserService {
             throw new IllegalArgumentException("User with that name already exists!");
         });
         return this.repo.save(new User(username, password));
-    }
-
-    /**
-     * Returns a {@link Page} of {@link User} for the given {@link Pageable}.
-     *
-     * @param pageable must not be {@literal null}.
-     */
-    public Page<User> findAll(Pageable pageable) {
-
-        Assert.notNull(pageable, "Pageable must not be null!");
-
-        return repo.findAll(pageable);
     }
 
     /**

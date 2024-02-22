@@ -12,7 +12,6 @@ import org.hibernate.validator.constraints.Length;
 import java.util.Set;
 
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "USERS")
 @Data
@@ -37,17 +36,17 @@ public class User extends Audit {
 
 
     //@NotNull(message = "Please enter first name")
-    @Column(name = "FIRST_NAME", nullable = true)
+    @Column(name = "FIRST_NAME")
     //@NotBlank(message = "User first name cannot be blank")
     private String firstName;
 
     //@NotNull(message = "Please enter last name")
-    @Column(name = "LAST_NAME", nullable = true)
+    @Column(name = "LAST_NAME")
     //@NotBlank(message = "User last name cannot be blank")
     private String lastName;
 
     //@NotNull
-    @Column(name = "FULL_NAME", nullable = true)
+    @Column(name = "FULL_NAME")
     //@NotBlank(message = "User full name cannot be blank")
     private String fullName;
 
@@ -100,5 +99,10 @@ public class User extends Audit {
     //@NotNull(message = "Please enter role name")
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "id")
+/*
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(EnumType.STRING)
+*/
     private Set<Role> roles;
 }

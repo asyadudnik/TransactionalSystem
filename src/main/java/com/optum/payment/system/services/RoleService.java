@@ -5,11 +5,12 @@ import com.optum.payment.system.repositories.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service("roleService")
 @Transactional
@@ -39,7 +40,7 @@ public class RoleService {
     }
 
     public Role get(long id) {
-        return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found Role with id = " + id));
+        return repo.findById(id).orElseThrow(() -> new NoSuchElementException("Not found Role with id = " + id));
     }
 
 

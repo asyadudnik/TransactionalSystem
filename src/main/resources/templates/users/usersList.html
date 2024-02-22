@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1 >Users List</h1>
-<a href="/api/users/new">Create New User</a>
+<a href="/payment/api/users/new">Create New User</a>
 <br/><br/>
 <table >
     <thead>
@@ -27,6 +27,7 @@
     </tr>
     </thead>
     <tbody>
+    <!--/*@thymesVar id="users" type=""*/-->
     <tr th:each="us : ${users}">
         <td th:text="${us.login}">Login</td>
         <td th:text="${us.password}">Password</td>
@@ -40,8 +41,8 @@
         <td th:text="${us.systemName}">System</td>
         <td th:text="${us.roleName}">Role</td>
         <td>
-            <a th:href="@{'/api/users/edit/?id='+${us.id}}">Edit</a>
-            <a th:href="@{'/api/users/delete/?id='+${us.id}}">Delete</a>
+            <a th:href="@{'/payment/api/users/edit/?id='+${us.id}}">Edit</a>
+            <a th:href="@{'/payment/api/users/delete/?id='+${us.id}}">Delete</a>
         </td>
     </tr>
     </tbody>

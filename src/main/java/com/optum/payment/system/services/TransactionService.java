@@ -7,12 +7,13 @@ import com.optum.payment.system.repositories.TransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service("transactionService")
 @Transactional
@@ -60,7 +61,7 @@ public class TransactionService {
     }
 
     public Transaction get(long id){
-        return repo.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return repo.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public void delete(long id) {
