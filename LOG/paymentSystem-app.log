@@ -1,0 +1,174 @@
+2024-02-22T15:37:01.544+02:00  INFO   --- [main] c.o.p.system.PaymentSystemApplication    : Starting application...
+2024-02-22T15:37:02.077+02:00  INFO   --- [restartedMain] c.o.p.system.PaymentSystemApplication    : Starting application...
+2024-02-22T15:37:20.995+02:00 DEBUG 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2024-02-22T15:37:28.364+02:00  WARN 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-02-22T15:37:39.740+02:00  WARN 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-22T15:37:43.290+02:00 DEBUG 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 40 mappings in 'requestMappingHandlerMapping'
+2024-02-22T15:37:43.929+02:00 DEBUG 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-02-22T15:37:45.167+02:00  WARN 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'securityFilterChain' defined in class path resource [com/optum/payment/system/config/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@7b1cc4c6 to already built object
+Related cause: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jsonSchemaConverter' defined in class path resource [org/springframework/data/rest/webmvc/config/RepositoryRestMvcConfiguration.class]: Failed to instantiate [org.springframework.data.rest.webmvc.json.PersistentEntityToJsonSchemaConverter]: Factory method 'jsonSchemaConverter' threw exception with message: Error creating bean with name 'linkCollector' defined in class path resource [org/springframework/data/rest/webmvc/config/RepositoryRestMvcConfiguration.class]: Unsatisfied dependency expressed through method 'linkCollector' parameter 1: Error creating bean with name 'selfLinkProvider' defined in class path resource [org/springframework/data/rest/webmvc/config/RepositoryRestMvcConfiguration.class]: Failed to instantiate [org.springframework.data.rest.core.support.SelfLinkProvider]: Factory method 'selfLinkProvider' threw exception with message: Error creating bean with name 'mvcConversionService': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2024-02-22T15:37:45.276+02:00 ERROR 22368 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'securityFilterChain' defined in class path resource [com/optum/payment/system/config/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@7b1cc4c6 to already built object
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:895)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:848)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:508)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1418)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.optum.payment.system.PaymentSystemApplication.main(PaymentSystemApplication.java:43)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityFilterChain' defined in class path resource [com/optum/payment/system/config/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@7b1cc4c6 to already built object
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1164)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1689)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1653)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1543)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1511)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1392)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:887)
+	... 25 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@7b1cc4c6 to already built object
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647)
+	... 42 common frames omitted
+Caused by: java.lang.IllegalStateException: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@7b1cc4c6 to already built object
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.add(AbstractConfiguredSecurityBuilder.java:203)
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.apply(AbstractConfiguredSecurityBuilder.java:129)
+	at org.springframework.security.config.annotation.web.builders.HttpSecurity.getOrApply(HttpSecurity.java:3678)
+	at org.springframework.security.config.annotation.web.builders.HttpSecurity.httpBasic(HttpSecurity.java:3172)
+	at com.optum.payment.system.config.WebSecurityConfig.securityFilterChain(WebSecurityConfig.java:53)
+	at com.optum.payment.system.config.WebSecurityConfig$$SpringCGLIB$$0.CGLIB$securityFilterChain$0(<generated>)
+	at com.optum.payment.system.config.WebSecurityConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
+	at com.optum.payment.system.config.WebSecurityConfig$$SpringCGLIB$$0.securityFilterChain(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140)
+	... 43 common frames omitted
+
+2024-02-22T15:40:00.224+02:00  INFO   --- [main] c.o.p.system.PaymentSystemApplication    : Starting application...
+2024-02-22T15:40:00.579+02:00  INFO   --- [restartedMain] c.o.p.system.PaymentSystemApplication    : Starting application...
+2024-02-22T15:40:09.984+02:00 DEBUG 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2024-02-22T15:40:11.936+02:00  WARN 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-02-22T15:40:16.463+02:00  WARN 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-22T15:40:17.477+02:00 DEBUG 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 40 mappings in 'requestMappingHandlerMapping'
+2024-02-22T15:40:17.820+02:00 DEBUG 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-02-22T15:40:18.250+02:00  WARN 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'securityFilterChain' defined in class path resource [com/optum/payment/system/config/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@80e5c05 to already built object
+Related cause: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jsonSchemaConverter' defined in class path resource [org/springframework/data/rest/webmvc/config/RepositoryRestMvcConfiguration.class]: Failed to instantiate [org.springframework.data.rest.webmvc.json.PersistentEntityToJsonSchemaConverter]: Factory method 'jsonSchemaConverter' threw exception with message: Error creating bean with name 'linkCollector' defined in class path resource [org/springframework/data/rest/webmvc/config/RepositoryRestMvcConfiguration.class]: Unsatisfied dependency expressed through method 'linkCollector' parameter 1: Error creating bean with name 'selfLinkProvider' defined in class path resource [org/springframework/data/rest/webmvc/config/RepositoryRestMvcConfiguration.class]: Failed to instantiate [org.springframework.data.rest.core.support.SelfLinkProvider]: Factory method 'selfLinkProvider' threw exception with message: Error creating bean with name 'mvcConversionService': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2024-02-22T15:40:18.331+02:00 ERROR 18252 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'securityFilterChain' defined in class path resource [com/optum/payment/system/config/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@80e5c05 to already built object
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:895)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:848)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:508)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1418)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.optum.payment.system.PaymentSystemApplication.main(PaymentSystemApplication.java:43)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityFilterChain' defined in class path resource [com/optum/payment/system/config/WebSecurityConfig.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@80e5c05 to already built object
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1164)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1689)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1653)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1543)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1511)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1392)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:887)
+	... 25 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@80e5c05 to already built object
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647)
+	... 42 common frames omitted
+Caused by: java.lang.IllegalStateException: Cannot apply org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer@80e5c05 to already built object
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.add(AbstractConfiguredSecurityBuilder.java:203)
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.apply(AbstractConfiguredSecurityBuilder.java:129)
+	at org.springframework.security.config.annotation.web.builders.HttpSecurity.getOrApply(HttpSecurity.java:3678)
+	at org.springframework.security.config.annotation.web.builders.HttpSecurity.httpBasic(HttpSecurity.java:3172)
+	at com.optum.payment.system.config.WebSecurityConfig.securityFilterChain(WebSecurityConfig.java:53)
+	at com.optum.payment.system.config.WebSecurityConfig$$SpringCGLIB$$0.CGLIB$securityFilterChain$1(<generated>)
+	at com.optum.payment.system.config.WebSecurityConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
+	at com.optum.payment.system.config.WebSecurityConfig$$SpringCGLIB$$0.securityFilterChain(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140)
+	... 43 common frames omitted
+
+2024-02-22T15:40:43.216+02:00  INFO   --- [main] c.o.p.system.PaymentSystemApplication    : Starting application...
+2024-02-22T15:40:43.473+02:00  INFO   --- [restartedMain] c.o.p.system.PaymentSystemApplication    : Starting application...
+2024-02-22T15:40:48.842+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.w.f.ServerHttpObservationFilter      : Filter 'webMvcObservationFilter' configured for use
+2024-02-22T15:40:51.598+02:00  WARN 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-02-22T15:40:56.198+02:00  WARN 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-22T15:40:57.382+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 40 mappings in 'requestMappingHandlerMapping'
+2024-02-22T15:40:57.660+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-02-22T15:40:58.747+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-02-22T15:40:58.856+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-02-22T15:40:58.962+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 0 ResponseBodyAdvice
+2024-02-22T15:41:00.317+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.SQL                        : select u1_0.ID,u1_0.BIRTH_DATE,u1_0.CHANGED_BY,u1_0.CREATED,u1_0.CREATED_BY,u1_0.EMAIL,u1_0.FIRST_NAME,u1_0.FULL_NAME,u1_0.GENDER,u1_0.LAST_NAME,u1_0.LOGIN,u1_0.NOTES,u1_0.PASSWORD,u1_0.PHONE_NUMBER,u1_0.PICTURE,u1_0.UPDATED from USERS u1_0 where u1_0.LOGIN=?
+2024-02-22T15:41:00.454+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.SQL                        : update USERS set BIRTH_DATE=?,CHANGED_BY=?,CREATED=?,CREATED_BY=?,EMAIL=?,FIRST_NAME=?,FULL_NAME=?,GENDER=?,LAST_NAME=?,LOGIN=?,NOTES=?,PASSWORD=?,PHONE_NUMBER=?,PICTURE=?,UPDATED=? where ID=?
+2024-02-22T15:41:00.513+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.SQL                        : update ROLES set ROLE_ID=null where ROLE_ID=?
+2024-02-22T15:41:00.534+02:00 DEBUG 21260 --- [com.optum.payment.system.PaymentSystemApplication] [restartedMain] org.hibernate.SQL                        : update SYSTEMS set SYSTEM_ID=null where SYSTEM_ID=?

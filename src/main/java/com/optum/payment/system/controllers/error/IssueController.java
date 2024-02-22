@@ -3,14 +3,13 @@ package com.optum.payment.system.controllers.error;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 
 import java.io.IOException;
 
-@RestController
+@Controller
 @RequestMapping(value = "/payment/api/errors")
 public class IssueController implements org.springframework.boot.web.servlet.error.ErrorController {
     private static final String PATH = "/";
@@ -20,20 +19,20 @@ public class IssueController implements org.springframework.boot.web.servlet.err
         int status = response.getStatus();
         switch (status) {
             case 404:
-                response.sendRedirect("/errors/404");
+                response.sendRedirect("/404");
                 break;
             case 401:
-                response.sendRedirect("/errors/401");
+                response.sendRedirect("/401");
                 break;
             case 403:
-                response.sendRedirect("/errors/403");
+                response.sendRedirect("/403");
                 break;
             case 405:
-                response.sendRedirect("/errors/405");
+                response.sendRedirect("/405");
                 break;
 
             default:
-                response.sendRedirect("/errors/error");
+                response.sendRedirect("/error");
         }
     }
     @GetMapping("/404")

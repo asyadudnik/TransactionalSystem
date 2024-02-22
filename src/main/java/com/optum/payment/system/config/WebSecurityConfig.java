@@ -13,7 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static com.optum.payment.system.global.InstallConstants.PASS;
 import static com.optum.payment.system.global.InstallConstants.USER;
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -49,8 +48,7 @@ public class WebSecurityConfig {
         http.securityMatcher(EndpointRequest.toAnyEndpoint());
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/user/login/")
-                .hasRole("ADMIN")).build();
-        http.httpBasic(withDefaults());
+                .hasRole("ADMIN"));
         return http.build();
     }
 
