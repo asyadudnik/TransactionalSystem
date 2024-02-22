@@ -1,7 +1,6 @@
 package com.optum.payment.system.config;
 
 import com.optum.payment.system.entities.enums.RoleName;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,14 +43,19 @@ public class WebSecurityConfig {
         return new InMemoryUserDetailsManager(springuser, root);
     }
 
+
+/*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher(EndpointRequest.toAnyEndpoint());
+       // http.securityMatcher(EndpointRequest.toAnyEndpoint());
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers("/user/login/")
-                .hasRole("ADMIN")).build();
-        http.httpBasic(withDefaults());
+                .requestMatchers("/payment/api/users")
+                .hasRole("ADMIN")
+                ).build();
+        //http.httpBasic(withDefaults());
         return http.build();
     }
+
+*/
 
 }
