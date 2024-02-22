@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -91,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit/{userId}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String showEditUserPage(@PathVariable(name = "userId") Long id) throws ChangeSetPersister.NotFoundException {
+    public String showEditUserPage(@PathVariable(name = "userId") Long id) {
         ModelAndView modelAndView = new ModelAndView("/users/edit_user");
         User user = userService.get(id);
         if (user != null) {
@@ -106,7 +107,7 @@ public class UserController {
 
 
     @DeleteMapping(value = "/delete/{id}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String deleteUser(@PathVariable(name = "id") Long id) throws ChangeSetPersister.NotFoundException {
+    public String deleteUser(@PathVariable(name = "id") Long id) {
         userService.delete(id);
         return "redirect:/";
     }
