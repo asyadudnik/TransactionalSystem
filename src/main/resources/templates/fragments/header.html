@@ -1,10 +1,10 @@
-<head th:fragment="header">
+<head th:fragment="header(metaTitle)">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta content="ie=edge" http-equiv="x-ua-compatible" />
     <title>Payment System</title>
+    <link th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js}" defer></script>
     <title th:text="${metaTitle} ? ${metaTitle} : 'Universal transaction system'"></title>
-    <!--<title th:include=":: #pageTitle">Layout Generic Title</title>-->
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>

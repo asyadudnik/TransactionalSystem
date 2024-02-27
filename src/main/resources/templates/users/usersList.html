@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="ru">
-<head lang="en" th:include="fragments/header :: header">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Users List')">
     <title th:id="metaTitle">Users List</title>
 </head>
+
 <body>
-<h1 >Users List</h1>
+
 <a href="/payment/api/users/new">Create New User</a>
 <br/><br/>
-<table >
+<table>
     <thead>
     <tr>
         <th>Login</th>
@@ -21,14 +22,14 @@
         <th>Gender</th>
         <th>Phone Number</th>
         <th>Picture</th>
-        <th>System</th>
-        <th>Role</th>
+        <th>Systems</th>
+        <th>Roles</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <!--/*@thymesVar id="users" type=""*/-->
     <tr th:each="us : ${users}">
+
         <td th:text="${us.login}">Login</td>
         <td th:text="${us.password}">Password</td>
         <td th:text="${us.firstName}">FirstName</td>
@@ -38,8 +39,8 @@
         <td th:text="${us.gender}">Gender</td>
         <td th:text="${us.phoneNumber}">PhoneNumber</td>
         <td th:text="${us.picture}">Picture</td>
-        <td th:text="${us.systemName}">System</td>
-        <td th:text="${us.roleName}">Role</td>
+        <td th:text="${us.systems[0]}">Systems</td>
+        <td th:text="${us.roles[0]}">Role</td>
         <td>
             <a th:href="@{'/payment/api/users/edit/?id='+${us.id}}">Edit</a>
             <a th:href="@{'/payment/api/users/delete/?id='+${us.id}}">Delete</a>
@@ -47,6 +48,6 @@
     </tr>
     </tbody>
 </table>
-<div lang="en" th:replace="fragments/footer :: footer"> </div>
+<div lang="en" th:replace="fragments/footer.html::footer()"></div>
 </body>
 </html>

@@ -24,6 +24,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    public static final String ERR_MSG="errMsg";
+    public static final String ERR_PAGE="/errors/error";
+    public static final String USERS_PAGE="/users/usersList";
+    public static final String EDIT_PAGE="/users/edit_user";
 
     private final UserService userService;
 
@@ -43,19 +47,23 @@ public class UserController {
     @GetMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     public String listAll(ModelAndView model) {
         List<User> users = userService.findAll();
-        model.addObject(users);
+        Map<String, List<User>> userMap = new HashMap<>();
+        userMap.put("users", users);
+        model.addObject(userMap);
+        model.setViewName(USERS_PAGE);
         try {
             users.forEach(usr ->
                     logger.info(JsonUtils.toJson(usr))
             );
-            return "/users/usersList";
+            return USERS_PAGE;
         } catch (Exception ex) {
-            String errMsg = ex.getMessage();
+            String exMessage = ex.getMessage();
             Map<String, String> errMap = new HashMap<>();
-            errMap.put("error", errMsg);
+            errMap.put(ERR_MSG, exMessage);
             model.addObject(errMap);
-            logger.error(errMsg);
-            return "/errors/error";
+            model.setViewName(ERR_PAGE);
+            logger.error(exMessage);
+            return ERR_PAGE;
         }
     }
 
@@ -73,7 +81,7 @@ public class UserController {
 
     @PostMapping(value = "/save")
     public String saveUser(@Valid @ModelAttribute("user") User user) {
-        ModelAndView modelAndView = new ModelAndView("/users/new_user");
+        ModelAndView modelAndView = new ModelAndView(EDIT_PAGE);
 
         try {
             userService.save(user);
@@ -83,25 +91,25 @@ public class UserController {
             users.forEach(usr ->
                     logger.info(JsonUtils.toJson(usr))
             );
-            return "/users/edit_user";
+            return EDIT_PAGE;
         } catch (Exception ex) {
             String errMsg = ex.getMessage();
-            modelAndView.addObject("errMsg", errMsg);
-            return "/errors/error";
+            modelAndView.addObject(ERR_MSG, errMsg);
+            return ERR_PAGE;
         }
     }
 
     @PostMapping(value = "/edit/{userId}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
     public String showEditUserPage(@PathVariable(name = "userId") Long id) {
-        ModelAndView modelAndView = new ModelAndView("/users/edit_user");
+        ModelAndView modelAndView = new ModelAndView(EDIT_PAGE);
         User user = userService.get(id);
         if (user != null) {
             modelAndView.addObject("user", user);
             return modelAndView.getViewName();
         } else {
             var errMsg = "USER NOT FOUND";
-            modelAndView.addObject("errMsg", errMsg);
-            return "redirect:/errors/error";
+            modelAndView.addObject(ERR_MSG, errMsg);
+            return ERR_PAGE;
         }
     }
 

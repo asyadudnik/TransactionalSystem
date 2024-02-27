@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head lang="en" th:include="fragments/header :: header">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Create New User')">
     <link th:rel="stylesheet" th:href="@{assets/password-strength-meter/password.min.css}"/>
     <script th:src="@{assets/password-strength-meter/password.min.js}"></script>
     <title th:id="metaTitle">Create New User</title>

@@ -10,14 +10,22 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import static com.optum.payment.system.global.InstallConstants.PASS;
 import static com.optum.payment.system.global.InstallConstants.USER;
 
 @Configuration
 @EnableWebSecurity
-//@EnableWebMvc
-public class WebSecurityConfig {
+@EnableWebMvc
+public class WebSecurityConfig  implements WebMvcConfigurer {
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
+            "classpath:/META-INF/resources/",
+            "classpath:/resources/",
+            "classpath:/static/",
+            "classpath:/public/"};
 
     /**
      * This section defines the user accounts which can be used for authentication as well as the roles each user has.
@@ -52,6 +60,14 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**")
+                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+        registry
+                .addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 
 
 }
