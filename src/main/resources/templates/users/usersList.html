@@ -7,47 +7,69 @@
 </head>
 
 <body>
-
-<a href="/payment/api/users/new">Create New User</a>
+<div class="container mt-5">
+    <a href="/payment/api/users/new">Create New User</a>
+    <br/><br/>
+    <table class="table table-striped">
+        <thead class="table-header">
+        <tr>
+            <th>Login</th>
+            <th>Password</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Phone Number</th>
+            <th>Picture</th>
+            <th>Systems</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.login}">Login</td>
+            <td th:text="${user.password}">Password</td>
+            <td th:text="${user.firstName}">FirstName</td>
+            <td th:text="${user.lastName}">LastName</td>
+            <td th:text="${user.fullName}">FullName</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.gender}">Gender</td>
+            <td th:text="${user.phoneNumber}">PhoneNumber</td>
+            <td th:text="${user.picture}">Picture</td>
+            <td th:text="${user.systems}">Systems</td>
+            <td th:text="${user.roles}">Role</td>
+            <td>
+                <a th:href="@{'/payment/api/users/edit/?id='+${user.id}}">Edit</a>
+                <a th:href="@{'/payment/api/users/delete/?id='+${user.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/><br/>
+    <nav aria-label="Page navigation"  class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/payment/api/users/?page=0}">First</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/payment/api/users/?page=${currentPage - 1}}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, users.totalPages - 1)}"
+                th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link" th:href="@{/payment/api/users/?page=(${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == users.totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/payment/api/users/?page=${currentPage + 1}}">Next</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == users.totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/payment/api/users/?page=${users.totalPages - 1}}">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
 <br/><br/>
-<table>
-    <thead>
-    <tr>
-        <th>Login</th>
-        <th>Password</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Gender</th>
-        <th>Phone Number</th>
-        <th>Picture</th>
-        <th>Systems</th>
-        <th>Roles</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="us : ${users}">
-
-        <td th:text="${us.login}">Login</td>
-        <td th:text="${us.password}">Password</td>
-        <td th:text="${us.firstName}">FirstName</td>
-        <td th:text="${us.lastName}">LastName</td>
-        <td th:text="${us.fullName}">FullName</td>
-        <td th:text="${us.email}">Email</td>
-        <td th:text="${us.gender}">Gender</td>
-        <td th:text="${us.phoneNumber}">PhoneNumber</td>
-        <td th:text="${us.picture}">Picture</td>
-        <td th:text="${us.systems[0]}">Systems</td>
-        <td th:text="${us.roles[0]}">Role</td>
-        <td>
-            <a th:href="@{'/payment/api/users/edit/?id='+${us.id}}">Edit</a>
-            <a th:href="@{'/payment/api/users/delete/?id='+${us.id}}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
 <div lang="en" th:replace="fragments/footer.html::footer()"></div>
 </body>
 </html>

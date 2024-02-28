@@ -1,12 +1,15 @@
 package com.optum.payment.system.controllers;
 
 import com.optum.payment.system.entities.User;
+import com.optum.payment.system.repositories.UserRepository;
 import com.optum.payment.system.services.UserService;
 import com.optum.payment.system.utils.JsonUtils;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -24,16 +27,20 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    public static final String ERR_MSG="errMsg";
-    public static final String ERR_PAGE="/errors/error";
-    public static final String USERS_PAGE="/users/usersList";
-    public static final String EDIT_PAGE="/users/edit_user";
+    public static final String ERR_MSG = "errMsg";
+    public static final String ERR_PAGE = "/errors/error";
+    public static final String USERS_PAGE = "/users/usersList";
+    public static final String EDIT_PAGE = "/users/edit_user";
+    public static final String NEW_PAGE = "/users/new_user";
 
+    private final UserRepository userRepository;
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserRepository userRepository) {
+
+        this.userRepository = userRepository;
+        this.userService = new UserService(userRepository);
     }
 
 
@@ -43,14 +50,12 @@ public class UserController {
     }
 
 
-
     @GetMapping(value = "/", produces = APPLICATION_JSON_VALUE)
-    public String listAll(ModelAndView model) {
-        List<User> users = userService.findAll();
-        Map<String, List<User>> userMap = new HashMap<>();
-        userMap.put("users", users);
-        model.addObject(userMap);
-        model.setViewName(USERS_PAGE);
+    public String listAll(Model model, @RequestParam(defaultValue = "0") int page) {
+        Page<User> users = userRepository.findAll(PageRequest.of(page, 10));
+        model.addAttribute("users", users);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("viewName", USERS_PAGE);
         try {
             users.forEach(usr ->
                     logger.info(JsonUtils.toJson(usr))
@@ -58,10 +63,8 @@ public class UserController {
             return USERS_PAGE;
         } catch (Exception ex) {
             String exMessage = ex.getMessage();
-            Map<String, String> errMap = new HashMap<>();
-            errMap.put(ERR_MSG, exMessage);
-            model.addObject(errMap);
-            model.setViewName(ERR_PAGE);
+            model.addAttribute(ERR_MSG, exMessage);
+            model.addAttribute("viewName", ERR_PAGE);
             logger.error(exMessage);
             return ERR_PAGE;
         }
@@ -69,13 +72,9 @@ public class UserController {
 
     @GetMapping(value = "/new")
     public ModelAndView showNewUserPage(Model model) {
-        ModelAndView modelAndView = new ModelAndView("/users/new_user");
-        User user = new User();
-        modelAndView.addObject("user", user);
-        logger.info(user.getFullName());
-        Map<String, Object> map=new HashMap<>();
-        map.put("user", user);
-        modelAndView.addObject("map", map);
+        Map<String, Object> attributes = model.asMap();
+        ModelAndView modelAndView = new ModelAndView(NEW_PAGE);
+        attributes.forEach(modelAndView::addObject);
         return modelAndView;
     }
 
@@ -99,8 +98,8 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/edit/{userId}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public String showEditUserPage(@PathVariable(name = "userId") Long id) {
+    @PostMapping(value = "/edit/{id}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
+    public String showEditUserPage(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView(EDIT_PAGE);
         User user = userService.get(id);
         if (user != null) {
@@ -109,6 +108,7 @@ public class UserController {
         } else {
             var errMsg = "USER NOT FOUND";
             modelAndView.addObject(ERR_MSG, errMsg);
+            modelAndView.setViewName(ERR_PAGE);
             return ERR_PAGE;
         }
     }
@@ -119,4 +119,5 @@ public class UserController {
         userService.delete(id);
         return "redirect:/";
     }
+
 }
