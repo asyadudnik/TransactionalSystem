@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head lang="en" th:include="fragments/header :: header">
-  <title th:id="metaTitle">Transactions List</title>
+      lang="ru">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Transactions List')">
+  <!--<title th:id="metaTitle">Users List</title>-->
+  <title th:text="${metaTitle} ? ${metaTitle} : 'Transactions List'"></title>
 </head>
 <body>
 <h1 align="center">Users List</h1>
@@ -46,6 +47,7 @@
   </tr>
   </tbody>
 </table>
-<div lang="en" th:replace="fragments/footer :: footer"> </div>
+<br/><br/>
+<div lang="en" th:replace="fragments/footer.html::footer()"></div>
 </body>
 </html>

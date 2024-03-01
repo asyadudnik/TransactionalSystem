@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/default">
-<head lang="en" th:include="fragments/header :: header">
-  <title th:id="metaTitle">Error page</title>
+      lang="ru">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Error page Database error')">
+    <title th:id="metaTitle">Error page Database error</title>
 </head>
 
 <body class="container">
-
-<div th:include="fragments/errorMessage :: errorMessage">
-  <title th:id="err" th:object="${errMsg}"></title>
-  <a th:id="err" th:title="${errMsg}"></a>
-  <div/>
-
-  <div lang="en" th:replace="fragments/footer :: footer"></div>
-
+<div th:include="fragments/errorMessage :: errorMessage(errMsg)">
+    <h1 th:id="errMsg" th:object="${errMsg}"></h1>
+    <!--<a th:id="errMsg" th:title="${errMsg}"></a>-->
 </div>
+
+<br/><br/>
+<div lang="en" th:replace="fragments/footer.html::footer()"></div>
 </body>
 </html>

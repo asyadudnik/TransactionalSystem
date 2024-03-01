@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head lang="en" th:include="fragments/header :: header">
-    <title th:id="metaTitle">Participants List</title>
+      xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Participants List')">
+    <title th:text="${metaTitle} ? ${metaTitle} : 'Participants List'"></title>
 </head>
 <body>
 <h1 align="center">Participant List</h1>
@@ -47,6 +48,7 @@
     </tr>
     </tbody>
 </table>
-<div lang="en" th:replace="fragments/footer :: footer"></div>
+<br/><br/>
+<div lang="en" th:replace="fragments/footer.html::footer()"></div>
 </body>
 </html>

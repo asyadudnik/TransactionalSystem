@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head lang="en" th:include="fragments/header :: header">
-    <title th:id="metaTitle">Create New System</title>
+      xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Create New System')">
+    <title th:text="${metaTitle} ? ${metaTitle} : 'Create New System'"></title>
 </head>
 
 <body>
@@ -52,6 +53,7 @@
         </table>
     </form>
 </div>
-<div lang="en" th:replace="fragments/footer :: footer"> </div>
+<br/><br/>
+<div lang="en" th:replace="fragments/footer.html::footer()"></div>
 </body>
 </html>

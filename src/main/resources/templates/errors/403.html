@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/default">
-<head lang="en" th:replace="fragments/header :: header"> </head>
+      lang="ru">
+<head lang="en" th:include="fragments/header :: header(metaTitle='Error page 403')">
+    <title th:id="metaTitle">Error page 403</title>
+</head>
+
 <body class="container">
-<div id="page" layout:fragment="errorMessage">
-    <p th:id="errMsg">403</p>
+<div th:include="fragments/errorMessage :: errorMessage(errMsg)">
+    <h1 th:id="errMsg" th:object="${errMsg}"></h1>
+    <!--<a th:id="errMsg" th:title="${errMsg}"></a>-->
 </div>
-<div lang="en" th:replace="fragments/footer :: footer"> </div>
-</body>
+<br/><br/>
+<div lang="en" th:replace="fragments/footer.html::footer()"></div>
+
 </body>
 </html>

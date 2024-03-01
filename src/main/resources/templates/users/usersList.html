@@ -3,7 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       lang="ru">
 <head lang="en" th:include="fragments/header :: header(metaTitle='Users List')">
-    <title th:id="metaTitle">Users List</title>
+    <!--<title th:id="metaTitle">Users List</title>-->
+    <title th:text="${metaTitle} ? ${metaTitle} : 'Users List'"></title>
 </head>
 
 <body>
