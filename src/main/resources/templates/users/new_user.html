@@ -14,11 +14,11 @@
         <table border="1" cellpadding="10">
             <tr>
                 <td>
-                    <label th:text="${'Login'}" th:field="${user.login}"></label>
+                    <label th:text="${'UserName'}" th:field="${user.userName}"></label>
                 </td>
-                <td><input type="text" th:field="*{login}"/></td>
+                <td><input type="text" th:field="*{userName}"/></td>
                 <td>
-                    <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}"></p>
+                    <p th:if="${#fields.hasErrors('userName')}" th:errorclass="error" th:errors="*{userName}"></p>
                 </td>
             </tr>
             <tr>
@@ -113,9 +113,9 @@
                 </td>
                 <td>
                     <select name="System" th:field="${user.systems}">
-                        <option th:each="syst : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
-                                th:value="${syst}"
-                                th:text="${syst.name}"/>
+                        <option th:each="system : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
+                                th:value="${system}"
+                                th:text="${system.name}"/>
                     </select>
                 </td>
                 <td>
@@ -129,9 +129,9 @@
                 <td>
                     <label>
                         <select name="Role" th:field="${user.roles}">
-                            <option th:each="rol : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
-                                    th:value="${rol}"
-                                    th:text="${rol.name}"/>
+                            <option th:each="role : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
+                                    th:value="${role}"
+                                    th:text="${role.name}"/>
                         </select>
                     </label>
                 </td>

@@ -14,7 +14,7 @@
     <table class="table table-striped">
         <thead class="table-header">
         <tr>
-            <th>Login</th>
+            <th>UserName</th>
             <th>Password</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -30,7 +30,7 @@
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
-            <td th:text="${user.login}">Login</td>
+            <td th:text="${user.getUserName}">UserName</td>
             <td th:text="${user.password}">Password</td>
             <td th:text="${user.firstName}">FirstName</td>
             <td th:text="${user.lastName}">LastName</td>

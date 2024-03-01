@@ -17,11 +17,11 @@ lang="ru">
                     <label th:text="${'Login'}" th:field="${user.updated}"></label>
                 </td>
                 <td><label>
-                    <input type="text" th:field="*{login}"/>
+                    <input type="text" th:field="*{getUserName}"/>
                     </label>
                 </td>
                 <td>
-                    <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}"></p>
+                    <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{getUserName}"></p>
                 </td>
             </tr>
             <tr>

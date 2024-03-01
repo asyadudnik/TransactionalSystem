@@ -42,13 +42,13 @@ public class UserService {
             logger.error("User not filled.");
             return null;
         }
-        Optional<User> userOptional = this.repo.findByLogin(user.getLogin());
+        Optional<User> userOptional = this.repo.findByUserName(user.getUserName());
         if (userOptional.isPresent()) {
             logger.info("Saving of user = {}", userOptional);
             if (user.equals(userOptional.get())) {
                 return userOptional.get();
             } else {
-                logger.info("User {} already exist", user.getLogin());
+                logger.info("User {} already exist", user.getUserName());
                 User realUser = userOptional.get();
                 User updated = User.builder()
                         .id(realUser.getId())
@@ -64,7 +64,7 @@ public class UserService {
                         .phoneNumber(user.getPhoneNumber())
                         .picture(user.getPicture())
                         .systems(user.getSystems())
-                        .login(user.getLogin())
+                        .userName(user.getUserName())
                         .build();
                 updated.setCreatedBy(realUser.getCreatedBy());
                 updated.setCreated(realUser.getCreated());
@@ -107,7 +107,7 @@ public class UserService {
         Assert.notNull(username, "Username must not be null!");
         Assert.notNull(password, "Password must not be null!");
 
-        this.repo.findByLogin(username).ifPresent(user -> {
+        this.repo.findByUserName(username).ifPresent(user -> {
             throw new IllegalArgumentException("User with that name already exists!");
         });
         return this.repo.save(new User(username, password));
@@ -122,7 +122,7 @@ public class UserService {
 
         Assert.notNull(username, "Username must not be null!");
 
-        return this.repo.findByLogin(username);
+        return this.repo.findByUserName(username);
     }
 
 }

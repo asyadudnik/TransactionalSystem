@@ -28,9 +28,9 @@ public class User extends Audit {
     @Column(name = "ID", nullable = false, unique = true, insertable = false, updatable = false)
     private Long id;
 
-    public User(@JsonProperty("login") String login,
+    public User(@JsonProperty("login") String userName,
                 @JsonProperty("password") String password) {
-        this.login = login;
+        this.userName = userName;
         this.password = password;
     }
 
@@ -58,9 +58,9 @@ public class User extends Audit {
     private String email;
 
     //key
-    @Column(name = "LOGIN", nullable = false, unique = true)
-    @NotBlank(message = "Login cannot be blank")
-    private String login;
+    @Column(name = "USER_NAME", nullable = false, unique = true)
+    @NotBlank(message = "UserName cannot be blank")
+    private String userName;
 
     //key
     @Length(min = 5, max = 142, message = "Password should be grater than  5 characters")

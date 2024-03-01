@@ -71,16 +71,19 @@ public class UserController {
 
     @GetMapping(value = "/new")
     public ModelAndView showNewUserPage(Model model) {
-        Map<String, Object> attributes = model.asMap();
         ModelAndView modelAndView = new ModelAndView(NEW_PAGE);
-        attributes.forEach(modelAndView::addObject);
+        Map<String, Object> attributes = model.asMap();
+        if (attributes.isEmpty()) {
+            modelAndView.addObject("user", new User());
+        } else {
+            attributes.forEach(modelAndView::addObject);
+        }
         return modelAndView;
     }
 
     @PostMapping(value = "/save")
     public String saveUser(@Valid @ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView(EDIT_PAGE);
-
         try {
             userService.save(user);
             modelAndView.addObject("user", user);
@@ -93,6 +96,7 @@ public class UserController {
         } catch (Exception ex) {
             String errMsg = ex.getMessage();
             modelAndView.addObject(ERR_MSG, errMsg);
+            modelAndView.setViewName(ERR_PAGE);
             return ERR_PAGE;
         }
     }
