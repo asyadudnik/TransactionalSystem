@@ -110,14 +110,14 @@ lang="ru">
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'SystemName'}" th:field="${user.systemName}"></label>
+                    <label th:text="${'Systems'}" th:field="${user.systems}"></label>
                 </td>
                 <td>
                     <label>
-                        <select name="System" th:field="${user.systems}">
-                            <option th:each="syst : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
-                                    th:value="${syst}"
-                                    th:text="${syst.name}"/>
+                        <select name="Systems" th:field="${user.systems}">
+                            <option th:each="system : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
+                                    th:value="${system}"
+                                    th:text="${system.name}"/>
                         </select>
                     </label>
                 </td>
@@ -127,13 +127,13 @@ lang="ru">
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'RoleName'}" th:field="${user.roleName}"></label>
+                    <label th:text="${'RoleName'}" th:field="${user.roles}"></label>
                 </td>
                 <td>
                     <select name="Role" th:field="${user.roles}">
-                        <option th:each="rol : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
-                                th:value="${rol}"
-                                th:text="${rol.name}"/>
+                        <option th:each="role : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
+                                th:value="${role}"
+                                th:text="${role.name}"/>
                     </select>
                 </td>
                 <td>
@@ -151,7 +151,7 @@ lang="ru">
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'birthDay'}" th:field="${user.birthDay}"></label>
+                    <label th:text="${'birthDay'}" th:field="${user.birthDate}"></label>
                 </td>
                 <td>
                     <input type="date" th:value="${user.birthDate}">

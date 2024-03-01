@@ -9,7 +9,8 @@ body {
 }
 
 h1{
-    font-color: whitesmoke;
+    color: whitesmoke;
+    background: #0dcaf0;
     font-size: 4vh;
     margin-left: 20px;
     margin-top: 30px;
@@ -33,7 +34,7 @@ h1{
 }
 
 form{
-    background: bisque;
+    background: darkgoldenrod;
     margin: 30px;
     padding: 20px;
 }
