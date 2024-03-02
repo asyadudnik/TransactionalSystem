@@ -14,23 +14,23 @@ lang="ru">
         <table >
             <tr>
                 <td>
-                    <label th:text="${'Login'}" th:field="${user.updated}"></label>
+                    <label th:text="${'UserName'}" th:field="${user.userName}"></label>
                 </td>
                 <td><label>
-                    <input type="text" th:field="*{getUserName}"/>
+                    <input type="text" th:field="*{userName}"/>
                     </label>
                 </td>
                 <td>
-                    <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{getUserName}"></p>
+                    <p th:if="${#fields.hasErrors('userName')}" th:errorclass="error" th:errors="*{userName}"></p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label th:text="${'Login'}" th:field="${user.updated}"></label>
+                    <label th:text="${'Password'}" th:field="${user.password}"></label>
                 </td>
-                <td><label>
+                <td>
                     <input type="text" th:field="${user.password}"/>
-                </label></td>
+                </td>
                 <td>
                     <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"></p>
                 </td>

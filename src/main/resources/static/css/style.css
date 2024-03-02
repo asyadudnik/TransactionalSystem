@@ -44,15 +44,20 @@ input{
 }
 
 a{
-    color: dimgrey;
+    color: yellowgreen;
+    background: #0dcaf0;
 }
 
 a:visited{
     color: whitesmoke;
+    background: #0dcaf0;
+    font-size: 4vh;
+    margin-left: 20px;
+    margin-top: 30px;
 }
 .button{
-    font-size: 4vh;
-    color: whitesmoke;
+                                                                                                                                                                                                                                                                            font-size: 4vh;
+    color: green;
     background-color: darkcyan;
     padding: 10px;
     border-radius: 5px;

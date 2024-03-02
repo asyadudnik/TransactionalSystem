@@ -65,7 +65,7 @@ public class UserController {
             model.addAttribute(ERR_MSG, exMessage);
             model.addAttribute("viewName", ERR_PAGE);
             logger.error(exMessage);
-            return ERR_PAGE;
+            return "redirect:" + ERR_PAGE;
         }
     }
 
@@ -101,7 +101,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/edit/{id}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/edit/{id}", produces = {APPLICATION_JSON_VALUE})
     public String showEditUserPage(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView(EDIT_PAGE);
         User user = userService.get(id);
