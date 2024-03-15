@@ -1,6 +1,4 @@
 package com.optum.payment.system.utils;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -8,8 +6,8 @@ import java.sql.Statement;
 import static com.optum.payment.system.global.InstallConstants.DB_URL;
 import static com.optum.payment.system.global.InstallConstants.JDBC_DRIVER;
 
+@Slf4j
 public class DatabaseUtils {
-    static Logger log = LogManager.getLogger(DatabaseUtils.class.getName());
     //static final String createDatabaseSql = "CREATE DATABASE " + databaseName;
 
 

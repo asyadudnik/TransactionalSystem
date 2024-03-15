@@ -5,9 +5,8 @@ import com.optum.payment.system.entities.SystemEvent;
 import com.optum.payment.system.entities.enums.ActiveStatus;
 import com.optum.payment.system.entities.enums.SystemName;
 import com.optum.payment.system.repositories.SystemEventRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -18,10 +17,11 @@ import java.util.NoSuchElementException;
 
 import static com.optum.payment.system.utils.EnumUtils.getEnumFromString;
 
+
+@Slf4j
 @Service("systemEventService")
 @Transactional
 public class SystemEventService {
-    public static final Logger logger = LoggerFactory.getLogger(SystemEventService.class);
     private final SystemEventRepository repo;
     private final SystemService systemService;
     @Autowired
@@ -37,7 +37,7 @@ public class SystemEventService {
 
     public void save(SystemEvent systemEvent) {
         if (systemEvent == null) {
-            logger.error("Null argument for save system event!");
+            log.error("Null argument for save system event!");
             return;
         }
         createSystem(systemEvent.getSystemEventName());
@@ -58,7 +58,7 @@ public class SystemEventService {
                 return systemService.save(systemCreated);
             }
         } else {
-            logger.error("Can't create system with empty name.");
+            log.error("Can't create system with empty name.");
         }
         return null;
     }
@@ -67,8 +67,8 @@ public class SystemEventService {
         if (repo.findById(id).isPresent()) {
             return repo.findById(id).orElseThrow(NoSuchElementException::new);
         } else {
-            if(logger.isDebugEnabled()) {
-                logger.error("Can't find system with id {}", id);
+            if(log.isDebugEnabled()) {
+                log.error("Can't find system with id {}", id);
             }
             return null;
         }

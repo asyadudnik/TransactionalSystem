@@ -25,6 +25,8 @@ public class WebSecurityConfig  implements WebMvcConfigurer {
             "classpath:/META-INF/resources/",
             "classpath:/resources/",
             "classpath:/static/",
+            "classpath:/static/css",
+            "classpath:/static/js",
             "classpath:/public/"};
 
     /**

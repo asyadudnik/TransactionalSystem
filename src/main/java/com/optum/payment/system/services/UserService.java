@@ -3,8 +3,7 @@ package com.optum.payment.system.services;
 import com.optum.payment.system.entities.User;
 import com.optum.payment.system.repositories.UserRepository;
 import com.optum.payment.system.utils.JsonUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -12,12 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.*;
-
+@Slf4j
 @Service("userService")
 @Transactional
 public class UserService {
-    public static final Logger logger = LoggerFactory.getLogger(UserService.class);
-
 
     private final UserRepository repo;
 
@@ -35,20 +32,20 @@ public class UserService {
    // @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
     public User save(User user) {
         if (user != null) {
-            if (logger.isDebugEnabled()) {
-                logger.info(JsonUtils.toJson(user));
+            if (log.isDebugEnabled()) {
+                log.info(JsonUtils.toJson(user));
             }
         } else {
-            logger.error("User not filled.");
+            log.error("User not filled.");
             return null;
         }
         Optional<User> userOptional = this.repo.findByUserName(user.getUserName());
         if (userOptional.isPresent()) {
-            logger.info("Saving of user = {}", userOptional);
+            log.info("Saving of user = {}", userOptional);
             if (user.equals(userOptional.get())) {
                 return userOptional.get();
             } else {
-                logger.info("User {} already exist", user.getUserName());
+                log.info("User {} already exist", user.getUserName());
                 User realUser = userOptional.get();
                 User updated = User.builder()
                         .id(realUser.getId())

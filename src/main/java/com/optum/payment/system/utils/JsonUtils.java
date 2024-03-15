@@ -2,11 +2,10 @@ package com.optum.payment.system.utils;
 
 import com.google.gson.Gson;
 import com.optum.payment.system.entities.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-
-import static com.optum.payment.system.controllers.UserController.logger;
-
+@Slf4j
 public class JsonUtils {
     private JsonUtils() {
     }
@@ -19,8 +18,8 @@ public class JsonUtils {
 
     public static String toJson(List<User> entities){
         for (User user : entities) {
-            if (logger.isDebugEnabled())
-                logger.info(toJson(user), "\n\r");
+            if (log.isDebugEnabled())
+                log.info(toJson(user), "\n\r");
         }
         return gson.toJson(entities);
     }

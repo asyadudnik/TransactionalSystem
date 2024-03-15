@@ -4,8 +4,7 @@ import com.optum.payment.system.entities.Participant;
 import com.optum.payment.system.entities.Transaction;
 import com.optum.payment.system.entities.enums.TransactionStatus;
 import com.optum.payment.system.repositories.TransactionRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -15,11 +14,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Slf4j
 @Service("transactionService")
 @Transactional
 public class TransactionService {
-    public static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
-
     private final TransactionRepository repo;
 
     @Autowired
@@ -35,7 +33,7 @@ public class TransactionService {
         try {
             repo.save(transaction);
         } catch (Exception ex) {
-            logger.error("Can't save transaction: {} " , ex.getMessage());
+            log.error("Can't save transaction: {} ", ex.getMessage());
         }
 
     }
@@ -60,7 +58,7 @@ public class TransactionService {
         return created;
     }
 
-    public Transaction get(long id){
+    public Transaction get(long id) {
         return repo.findById(id).orElseThrow(NoSuchElementException::new);
     }
 

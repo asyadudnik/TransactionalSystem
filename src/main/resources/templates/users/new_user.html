@@ -8,15 +8,15 @@
 </head>
 <body>
 <div align="center">
-    <h1 align="center">Create New User</h1>
-    <br/><br/>
-    <form action="#" th:action="@{'/payment/api/users/save/'}" th:object="${user}" method="post">
+    <form action="#" th:action="@{'/payment/api/users/save'}" th:object="${user}" method="post">
         <table border="1" cellpadding="10">
             <tr>
                 <td>
                     <label th:text="${'UserName'}" th:field="${user.userName}"></label>
                 </td>
-                <td><input type="text" th:field="*{userName}"/></td>
+                <td><label>
+                    <input type="text" th:field="*{userName}"/>
+                </label></td>
                 <td>
                     <p th:if="${#fields.hasErrors('userName')}" th:errorclass="error" th:errors="*{userName}"></p>
                 </td>
@@ -27,8 +27,10 @@
                 </td>
                 <td>
                     <div class="input-group" id="show_hide_password">
-                        <input type="password" class="form-control" id="password" autocomplete="off"
-                               th:field="*{password}"/>
+                        <label for="password">
+                            <input type="password" class="form-control" id="password" autocomplete="off"
+                                   th:field="*{password}"/>
+                        </label>
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
                         </div>
@@ -60,7 +62,9 @@
                 <td>
                     <label th:text="${'FullName'}" th:field="${user.fullName}"></label>
                 </td>
-                <td><input type="text" th:field="${user.fullName}"></td>
+                <td><label>
+                    <input type="text" th:field="${user.fullName}">
+                </label></td>
                 <td>
                     <p th:if="${#fields.hasErrors('fullName')}" th:errorclass="error" th:errors="*{fullName}"></p>
                 </td>
@@ -107,16 +111,23 @@
                     <p th:if="${#fields.hasErrors('picture')}" th:errorclass="error" th:errors="*{picture}"></p>
                 </td>
             </tr>
-            <tr>
+            <tr th:each="${user.systems}">
                 <td>
                     <label th:text="${'Systems'}" th:field="${user.systems}"></label>
                 </td>
                 <td>
-                    <select name="System" th:field="${user.systems}">
-                        <option th:each="system : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
-                                th:value="${system}"
-                                th:text="${system.name}"/>
+                    <div th:with="condition=${user.systems.size()!=0}">
+                    <div th:each="system : ${user.systems}">
+                    <select name="System" th:field="${system}">
+                        <option th:each="syst : ${T(com.optum.payment.system.entities.enums.SystemName).values()}"
+                                th:value="${syst}"
+                                th:text="${syst.name}"/>
+                        </option>
                     </select>
+                    </div>
+                    </div>
+
+
                 </td>
                 <td>
                     <p th:if="${#fields.hasErrors('systems')}" th:errorclass="error" th:errors="*{systems}"></p>
@@ -128,11 +139,13 @@
                 </td>
                 <td>
                     <label>
+                        <div th:each="role : ${user.roles}">
                         <select name="Role" th:field="${user.roles}">
-                            <option th:each="role : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
-                                    th:value="${role}"
-                                    th:text="${role.name}"/>
+                            <option th:each="rol : ${T(com.optum.payment.system.entities.enums.RoleName).values()}"
+                                    th:value="${rol}"
+                                    th:text="${rol.name}"/>
                         </select>
+                        </div>
                     </label>
                 </td>
                 <td>
@@ -156,7 +169,8 @@
                 </td>
                 <td>
                     <label>
-                        <input type="date" th:value="${user.birthDate}"  th:field="${user.birthDate}" class="form-control">
+                        <input type="date" th:value="${{user.birthDate}}" th:field="${user.birthDate}"
+                               class="form-control">
                     </label>
                 </td>
                 <td>

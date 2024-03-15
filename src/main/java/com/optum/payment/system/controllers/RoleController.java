@@ -3,21 +3,17 @@ package com.optum.payment.system.controllers;
 import com.optum.payment.system.entities.Role;
 
 import com.optum.payment.system.services.RoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @Controller
 @RequestMapping("/payment/api/roles")
 public class RoleController {
-    public static final Logger logger = LoggerFactory.getLogger(RoleController.class);
-
-
     private final RoleService roleService;
     @Autowired
     public RoleController(RoleService roleService) {

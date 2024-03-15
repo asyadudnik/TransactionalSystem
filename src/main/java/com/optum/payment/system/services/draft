@@ -2,16 +2,16 @@
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
     public User save(User user) {
         if (user != null) {
-            if (logger.isDebugEnabled()) {
-                logger.info(JsonUtils.toJson(user));
+            if (log.isDebugEnabled()) {
+                log.info(JsonUtils.toJson(user));
             }
         } else {
-            logger.error("User not filled.");
+            log.error("User not filled.");
             return null;
         }
         Optional<User> userOptional = userRepository.findByLogin(user.getLogin());
         if (userOptional.isPresent()) {
-            logger.info("Saving of user = {}", userOptional);
+            log.info("Saving of user = {}", userOptional);
             return userOptional.get();
         } else {
             return userRepository.save(user);
@@ -23,16 +23,16 @@
     @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
     public void update(User user) {
         if (user != null) {
-            if (logger.isDebugEnabled()) {
-                logger.info(JsonUtils.toJson(user));
+            if (log.isDebugEnabled()) {
+                log.info(JsonUtils.toJson(user));
             }
         } else {
-            logger.error("User not filled.");
+            log.error("User not filled.");
             return;
         }
         Optional<User> userOptional = userRepository.findByLogin(user.getLogin());
         if (userOptional.isPresent()) {
-            logger.info("Saving of user = {}", userOptional);
+            log.info("Saving of user = {}", userOptional);
             User recordInDatabase = userOptional.get();
             if (!recordInDatabase.equals(user)) {
                 User updated = User.builder()

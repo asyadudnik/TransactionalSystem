@@ -2,8 +2,7 @@ package com.optum.payment.system.services;
 
 import com.optum.payment.system.entities.Role;
 import com.optum.payment.system.repositories.RoleRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -11,11 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
+@Slf4j
 @Service("roleService")
 @Transactional
 public class RoleService {
-    public static final Logger logger = LoggerFactory.getLogger(RoleService.class);
 
     private final RoleRepository repo;
     @Autowired
@@ -29,8 +27,8 @@ public class RoleService {
 
     public Role save(Role role) {
         if (role != null && role.getId() != null && get(role.getId()) != null) {
-            if(logger.isDebugEnabled()){
-                logger.info("Role {} already exist!", role.getRoleName());
+            if(log.isDebugEnabled()){
+                log.info("Role {} already exist!", role.getRoleName());
             }
             return role;
         } else {

@@ -2,7 +2,6 @@ package com.optum.payment.system.controllers.advices;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,14 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.SQLException;
 
-
+@Slf4j
 @ControllerAdvice
 public class CustomExceptionHandler {//extends ResponseEntityExceptionHandler{
-    public static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
     @ExceptionHandler(SQLException.class)
     public String handleSQLException(HttpServletRequest request, Exception ex) {
-        logger.info("SQLException Occurred:: URL=" , request.getRequestURL());
+        log.info("SQLException Occurred:: URL=" , request.getRequestURL());
         var errMsg = ex.getMessage();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("errMsg", errMsg);
@@ -31,6 +29,6 @@ public class CustomExceptionHandler {//extends ResponseEntityExceptionHandler{
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "IOException occurred")
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public void handleMethodArgumentNotValidException() {
-        logger.error("IOException handler executed");
+        log.error("IOException handler executed");
     }
 }

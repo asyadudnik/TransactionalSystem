@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Set;
 
@@ -68,7 +69,7 @@ public class User extends Audit {
     private String password;
 
 
-    @Past
+    @Past @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "BIRTH_DATE")
     private java.util.Date birthDate;
 

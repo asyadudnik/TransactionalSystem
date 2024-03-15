@@ -3,8 +3,7 @@ package com.optum.payment.system;
 import com.optum.payment.system.entities.User;
 import com.optum.payment.system.global.InstallConstants;
 import com.optum.payment.system.services.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,10 +19,9 @@ import java.util.TimeZone;
 import static com.optum.payment.system.global.InstallConstants.PASS;
 import static com.optum.payment.system.global.InstallConstants.USER;
 
-
+@Slf4j
 @SpringBootApplication(exclude = {SqlInitializationAutoConfiguration.class})
 public class PaymentSystemApplication implements CommandLineRunner {
-    private static final Logger log = LogManager.getLogger(PaymentSystemApplication.class.getName());
 
     private final ApplicationContext applicationContext;
     private final UserService userService;
